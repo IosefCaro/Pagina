@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Admin — Colegio Iosef Caro</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --primary:#13134F;--accent:#FFB400;--white:#fff;
+  --bg:#F7F7FB;--border:#E2E2EF;--ink:#1a1a3a;
+  --muted:#6b6b8a;--sec:#5539F2;--danger:#E85D04;
+}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;}
+#login-screen{position:fixed;inset:0;background:var(--primary);display:flex;align-items:center;justify-content:center;z-index:1000;}
+.login-box{background:white;padding:2.5rem;max-width:380px;width:90%;box-shadow:0 32px 80px rgba(0,0,0,.3);}
+.login-logo{font-family:'Playfair Display',serif;color:var(--primary);font-size:1.25rem;margin-bottom:.2rem;}
+.login-sub{font-size:.68rem;color:var(--muted);letter-spacing:.14em;text-transform:uppercase;margin-bottom:2rem;}
+.login-box input{width:100%;border:1px solid var(--border);padding:.8rem 1rem;font-family:'Inter',sans-serif;font-size:.9rem;outline:none;margin-bottom:.75rem;transition:border-color .2s;}
+.login-box input:focus{border-color:var(--primary);}
+.login-btn{width:100%;background:var(--primary);color:white;border:none;padding:.9rem;font-family:'Inter',sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;}
+.login-btn:hover{background:#1a1a6e;}
+.login-err{color:var(--danger);font-size:.78rem;margin-top:.5rem;display:none;}
+.topbar{position:sticky;top:0;z-index:100;background:var(--primary);display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:60px;box-shadow:0 2px 12px rgba(0,0,0,.2);}
+.topbar-title{font-family:'Playfair Display',serif;color:white;font-size:1rem;}
+.topbar-badge{background:rgba(255,180,0,.2);border:1px solid rgba(255,180,0,.4);color:var(--accent);font-size:.58rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;padding:.3rem .8rem;border-radius:100px;}
+.logout-btn{background:none;border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.7);font-family:'Inter',sans-serif;font-size:.6rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:.35rem .9rem;cursor:pointer;border-radius:100px;}
+.logout-btn:hover{background:rgba(255,255,255,.1);color:white;}
+.main{max-width:1100px;margin:0 auto;padding:2rem 1.5rem 4rem;}
+.admin-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:2rem;flex-wrap:wrap;gap:1rem;}
+.admin-header h1{font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--primary);}
+.btn-new{background:var(--accent);color:var(--primary);border:none;cursor:pointer;font-family:'Inter',sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:.65rem 1.6rem;border-radius:100px;}
+.btn-new:hover{background:#ffc933;}
+.filter-bar{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.75rem;}
+.fbt{background:white;border:1px solid var(--border);cursor:pointer;font-family:'Inter',sans-serif;font-size:.62rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:.4rem 1rem;border-radius:100px;}
+.fbt.active,.fbt:hover{background:var(--primary);color:white;border-color:var(--primary);}
+.posts-list{display:flex;flex-direction:column;gap:.75rem;}
+.post-row{background:white;border:1px solid var(--border);display:grid;grid-template-columns:60px 1fr auto;align-items:center;gap:1rem;padding:.9rem 1.1rem;transition:box-shadow .2s;}
+.post-row:hover{box-shadow:0 4px 14px rgba(19,19,79,.08);}
+.post-thumb{width:56px;height:56px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:1.6rem;overflow:hidden;flex-shrink:0;}
+.post-thumb img{width:100%;height:100%;object-fit:cover;}
+.post-row-title{font-weight:600;font-size:.88rem;color:var(--ink);margin-bottom:.25rem;}
+.post-row-meta{font-size:.68rem;color:var(--muted);}
+.cat-dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:.3rem;vertical-align:middle;}
+.post-actions{display:flex;gap:.5rem;flex-shrink:0;}
+.act-btn{background:none;border:1px solid var(--border);cursor:pointer;font-family:'Inter',sans-serif;font-size:.6rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.35rem .8rem;border-radius:4px;color:var(--muted);}
+.act-btn:hover{background:var(--primary);color:white;border-color:var(--primary);}
+.act-btn.danger:hover{background:var(--danger);border-color:var(--danger);}
+.empty-state,.loading-state{text-align:center;padding:3rem 2rem;color:var(--muted);font-size:.88rem;border:1px dashed var(--border);background:white;}
+.modal-bg{position:fixed;inset:0;z-index:500;background:rgba(10,10,40,.75);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:1rem;}
+.modal-bg.hidden{display:none;}
+.modal{background:white;max-width:720px;width:100%;max-height:92vh;overflow-y:auto;box-shadow:0 24px 60px rgba(0,0,0,.3);}
+.modal-header{padding:1.4rem 1.75rem 1rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:white;z-index:1;}
+.modal-header h3{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--primary);}
+.modal-close{background:none;border:none;cursor:pointer;font-size:1.5rem;color:var(--muted);line-height:1;padding:.2rem .4rem;}
+.modal-body{padding:1.5rem 1.75rem 2rem;}
+.fg{display:flex;flex-direction:column;gap:.4rem;margin-bottom:1rem;}
+.fg label{font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
+.fg input,.fg select,.fg textarea{border:1px solid var(--border);padding:.7rem .9rem;font-family:'Inter',sans-serif;font-size:.88rem;color:var(--ink);outline:none;transition:border-color .2s;width:100%;}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--primary);}
+.fg textarea{resize:vertical;min-height:80px;}
+.fg-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.np-block-btn{background:none;border:1px solid var(--border);cursor:pointer;font-family:'Inter',sans-serif;font-size:.62rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.35rem .75rem;color:var(--muted);border-radius:4px;}
+.np-block-btn:hover{background:var(--primary);color:white;border-color:var(--primary);}
+.np-block-item{background:var(--bg);border:1px solid var(--border);padding:.65rem .9rem;display:flex;align-items:flex-start;gap:.7rem;flex-wrap:wrap;}
+.np-block-type{font-size:.58rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);min-width:48px;margin-top:.2rem;flex-shrink:0;}
+.upload-progress{height:4px;background:var(--border);margin-top:.4rem;display:none;width:100%;}
+.upload-progress-bar{height:100%;background:var(--accent);width:0%;transition:width .3s;}
+.media-preview{max-height:80px;margin-top:.35rem;border:1px solid var(--border);display:none;}
+.btn-send{width:100%;background:var(--primary);color:white;border:none;padding:.95rem;font-family:'Inter',sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;margin-top:.75rem;}
+.btn-send:hover{background:#1a1a6e;}
+.btn-send:disabled{background:var(--muted);cursor:not-allowed;}
+.confirm-box{background:white;max-width:360px;width:90%;padding:2rem;box-shadow:0 24px 60px rgba(0,0,0,.3);text-align:center;}
+.confirm-box h4{font-family:'Playfair Display',serif;color:var(--primary);margin-bottom:.75rem;}
+.confirm-box p{font-size:.84rem;color:var(--muted);margin-bottom:1.5rem;line-height:1.6;}
+.confirm-btns{display:flex;gap:.75rem;justify-content:center;}
+.confirm-btns button{border:none;cursor:pointer;font-family:'Inter',sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.65rem 1.4rem;border-radius:100px;}
+.btn-cancel{background:var(--bg);color:var(--muted);border:1px solid var(--border)!important;}
+.btn-confirm-del{background:var(--danger);color:white;}
+.toast{position:fixed;bottom:1.5rem;right:1.5rem;z-index:9999;background:var(--primary);color:white;padding:.75rem 1.4rem;font-size:.78rem;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,.2);transform:translateY(80px);opacity:0;transition:all .3s;pointer-events:none;border-left:3px solid var(--accent);}
+.toast.show{transform:translateY(0);opacity:1;}
+.toast.error{background:#7a1500;border-left-color:#ff4444;}
+</style>
+</head>
+<body>
+
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-logo">Colegio Rabino Iosef Caro</div>
+    <div class="login-sub">Panel de administración</div>
+    <input type="password" id="login-pass" placeholder="Contraseña…"/>
+    <button class="login-btn" id="login-btn">Ingresar</button>
+    <div class="login-err" id="login-err">Contraseña incorrecta.</div>
+  </div>
+</div>
+
+<header class="topbar">
+  <div style="display:flex;align-items:center;gap:1rem;">
+    <div class="topbar-title">Panel de Novedades</div>
+    <span class="topbar-badge">🔒 Admin</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:.75rem;">
+    <a href="index.html" target="_blank"
+      style="color:rgba(255,255,255,.6);font-size:.62rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;">
+      Ver sitio →
+    </a>
+    <button class="logout-btn" id="logout-btn">Cerrar sesión</button>
+  </div>
+</header>
+
+<main class="main" id="main-content" style="display:none;">
+  <div class="admin-header">
+    <div>
+      <h1>Novedades</h1>
+      <p style="font-size:.78rem;color:var(--muted);margin-top:.25rem;" id="posts-count">Conectando…</p>
+    </div>
+    <button class="btn-new" id="btn-open-new">+ Nueva novedad</button>
+  </div>
+  <div class="filter-bar" id="filter-bar">
+    <button class="fbt active" data-cat="todos">Todos</button>
+    <button class="fbt" data-cat="institucional">Institucional</button>
+    <button class="fbt" data-cat="inicial">Inicial</button>
+    <button class="fbt" data-cat="primario">Primario</button>
+    <button class="fbt" data-cat="secundario">Secundario</button>
+    <button class="fbt" data-cat="comunidad">Comunidad</button>
+    <button class="fbt" data-cat="logros">Logros</button>
+  </div>
+  <div class="posts-list" id="posts-list">
+    <div class="loading-state">Conectando con Firebase…</div>
+  </div>
+</main>
+
+<div class="modal-bg hidden" id="modal-post">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="modal-title">Nueva Novedad</h3>
+      <button class="modal-close" id="btn-close-modal">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="fg"><label>Título *</label>
+        <input type="text" id="np-titulo" placeholder="Ej: Festejamos Purim con toda la kehilá"/>
+      </div>
+      <div class="fg-row">
+        <div class="fg"><label>Categoría *</label>
+          <select id="np-cat">
+            <option value="institucional">🏛️ Institucional</option>
+            <option value="inicial">🌱 Nivel Inicial</option>
+            <option value="primario">📖 Nivel Primario</option>
+            <option value="secundario">🎓 Nivel Secundario</option>
+            <option value="comunidad">🤝 Comunidad</option>
+            <option value="logros">🏆 Logros</option>
+          </select>
+        </div>
+        <div class="fg"><label>Autor / Sección</label>
+          <input type="text" id="np-autor" placeholder="Ej: Dirección General"/>
+        </div>
+      </div>
+      <div class="fg"><label>Descripción corta (aparece en la tarjeta del muro)</label>
+        <input type="text" id="np-excerpt" placeholder="Breve descripción…"/>
+      </div>
+      <div class="fg"><label>Foto de portada</label>
+        <div style="display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;">
+          <input type="text" id="np-cover-url" placeholder="https://…url-foto.jpg" style="flex:1;min-width:160px;"/>
+          <button type="button" class="np-block-btn" id="btn-cover-upload" title="Requiere Storage (pago) — pegá una URL" style="opacity:.4;cursor:not-allowed;">📁 Subir foto</button>
+          <input type="file" id="np-cover-file" accept="image/*" style="display:none;"/>
+        </div>
+        <div class="upload-progress" id="cover-progress"><div class="upload-progress-bar" id="cover-bar"></div></div>
+        <p style="font-size:.65rem;color:var(--muted);margin-top:.3rem;">📎 Subí la foto a <a href="https://imgbb.com" target="_blank" style="color:var(--accent);">imgbb.com</a> (gratis) y pegá la URL acá.</p>
+        <img id="np-cover-preview" class="media-preview" alt="preview"/>
+      </div>
+      <div class="fg">
+        <label style="display:flex;justify-content:space-between;align-items:center;">
+          Contenido
+          <span style="display:flex;gap:.35rem;">
+            <button type="button" class="np-block-btn" data-add-block="text">+ Texto</button>
+            <button type="button" class="np-block-btn" data-add-block="photo">+ Foto</button>
+            <button type="button" class="np-block-btn" data-add-block="video">+ Video</button>
+          </span>
+        </label>
+        <div id="np-blocks" style="display:flex;flex-direction:column;gap:.6rem;margin-top:.4rem;"></div>
+        <p style="font-size:.68rem;color:var(--muted);margin-top:.4rem;line-height:1.6;">
+          Combiná bloques en el orden que quieras.<br/>
+          <strong>Video:</strong> YouTube o Vimeo para autoplay automático.
+        </p>
+      </div>
+      <button class="btn-send" id="btn-save">Publicar novedad</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-bg hidden" id="modal-confirm">
+  <div class="confirm-box">
+    <h4>¿Eliminar novedad?</h4>
+    <p>Esta acción no se puede deshacer. La novedad desaparecerá del muro para todos.</p>
+    <div class="confirm-btns">
+      <button class="btn-cancel" id="btn-cancel-del">Cancelar</button>
+      <button class="btn-confirm-del" id="btn-confirm-del">Sí, eliminar</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script type="module">
+import { initializeApp }   from 'https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js';
+import { getFirestore, collection, onSnapshot, addDoc, updateDoc,
+         deleteDoc, doc, orderBy, query, serverTimestamp }
+  from 'https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js';
+// Storage no habilitado (plan gratuito) — usar URLs externas para fotos
+
+const FB = {
+  apiKey:'AIzaSyDtCoBB-39By9vJramKk3fvPp4A2VhfLhk',
+  authDomain:'paginawebiosefcaro-81505.firebaseapp.com',
+  projectId:'paginawebiosefcaro-81505',
+  storageBucket:'paginawebiosefcaro-81505.firebasestorage.app',
+  messagingSenderId:'367559654928',
+  appId:'1:367559654928:web:1513c3b828e3cee3f75495'
+};
+const app     = initializeApp(FB);
+const db      = getFirestore(app);
+
+
+/* ── constantes UI ── */
+const ADMIN_PASS = 'iosefcaro2025';
+const catLabels  = {institucional:'Institucional',inicial:'Inicial',primario:'Primario',secundario:'Secundario',comunidad:'Comunidad',logros:'Logros'};
+const catColors  = {institucional:'#13134F',inicial:'#c88b00',primario:'#6a9000',secundario:'#5539F2',comunidad:'#E85D04',logros:'#0077B6'};
+const catEmoji   = {institucional:'🏛️',inicial:'🌱',primario:'📖',secundario:'🎓',comunidad:'🤝',logros:'🏆'};
+
+/* ── estado ── */
+let posts = [], currentFilter = 'todos', editingId = null, deletingId = null, blockCount = 0;
+
+/* ── LOGIN ── */
+const $ = id => document.getElementById(id);
+$('login-btn').onclick = doLogin;
+$('login-pass').onkeydown = e => { if(e.key==='Enter') doLogin(); };
+$('logout-btn').onclick   = doLogout;
+
+function doLogin(){
+  if($('login-pass').value === ADMIN_PASS){
+    $('login-screen').style.display = 'none';
+    $('main-content').style.display = 'block';
+    $('login-pass').value = '';
+  } else {
+    $('login-err').style.display = 'block';
+    setTimeout(() => $('login-err').style.display = 'none', 3000);
+  }
+}
+function doLogout(){
+  $('login-screen').style.display = 'flex';
+  $('main-content').style.display = 'none';
+}
+
+/* ── FIRESTORE listener ── */
+const q = query(collection(db,'novedades'), orderBy('createdAt','desc'));
+onSnapshot(q, snap => {
+  posts = snap.docs.map(d => ({firestoreId:d.id, ...d.data()}));
+  renderList();
+}, err => { toast('Error Firebase: '+err.message, true); });
+
+/* ── RENDER ── */
+function renderList(){
+  const filtered = currentFilter==='todos' ? posts : posts.filter(p=>p.cat===currentFilter);
+  $('posts-count').textContent = filtered.length === posts.length
+    ? `${posts.length} novedades publicadas`
+    : `${filtered.length} de ${posts.length} novedades`;
+
+  if(filtered.length === 0){
+    $('posts-list').innerHTML = '<div class="empty-state">No hay novedades en esta categoría.</div>';
+    return;
+  }
+  $('posts-list').innerHTML = filtered.map(p => `
+    <div class="post-row">
+      <div class="post-thumb">${p.coverUrl
+        ? `<img src="${p.coverUrl}" alt="" onerror="this.style.display='none'"/>`
+        : (catEmoji[p.cat]||'📰')}</div>
+      <div>
+        <div class="post-row-title">${p.title}</div>
+        <div class="post-row-meta">
+          <span class="cat-dot" style="background:${catColors[p.cat]}"></span>
+          ${catLabels[p.cat]||p.cat} · ${p.date||''} · ✍️ ${p.autor||''} · ❤️ ${p.likes||0}
+        </div>
+      </div>
+      <div class="post-actions">
+        <button class="act-btn" data-edit="${p.firestoreId}">✏️ Editar</button>
+        <button class="act-btn danger" data-del="${p.firestoreId}">🗑️ Borrar</button>
+      </div>
+    </div>`).join('');
+
+  // Eventos delegados en la lista
+  $('posts-list').querySelectorAll('[data-edit]').forEach(btn =>
+    btn.onclick = () => openEdit(btn.dataset.edit));
+  $('posts-list').querySelectorAll('[data-del]').forEach(btn =>
+    btn.onclick = () => askDelete(btn.dataset.del));
+}
+
+/* ── FILTROS ── */
+$('filter-bar').addEventListener('click', e => {
+  const btn = e.target.closest('.fbt');
+  if(!btn) return;
+  document.querySelectorAll('.fbt').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  currentFilter = btn.dataset.cat;
+  renderList();
+});
+
+/* ── MODAL ABRIR/CERRAR ── */
+$('btn-open-new').onclick  = openNew;
+$('btn-close-modal').onclick = closeModal;
+$('modal-post').onclick    = e => { if(e.target===$('modal-post')) closeModal(); };
+$('btn-cancel-del').onclick  = closeConfirm;
+$('modal-confirm').onclick = e => { if(e.target===$('modal-confirm')) closeConfirm(); };
+
+function openNew(){
+  editingId = null;
+  $('modal-title').textContent = 'Nueva Novedad';
+  $('btn-save').textContent = 'Publicar novedad';
+  clearForm();
+  addBlock('text');
+  $('modal-post').classList.remove('hidden');
+}
+function openEdit(firestoreId){
+  const p = posts.find(x=>x.firestoreId===firestoreId);
+  if(!p) return;
+  editingId = firestoreId;
+  $('modal-title').textContent = 'Editar Novedad';
+  $('btn-save').textContent = 'Guardar cambios';
+  $('np-titulo').value   = p.title   ||'';
+  $('np-cat').value      = p.cat     ||'institucional';
+  $('np-autor').value    = p.autor   ||'';
+  $('np-excerpt').value  = p.excerpt ||'';
+  $('np-cover-url').value = p.coverUrl||'';
+  const prev = $('np-cover-preview');
+  if(p.coverUrl){ prev.src=p.coverUrl; prev.style.display='block'; }
+  else { prev.style.display='none'; }
+  $('np-blocks').innerHTML=''; blockCount=0;
+  (p.blocks||[]).forEach(b => addBlock(b.type==='photo'?'photo':b.type==='video'?'video':'text', b.content));
+  $('modal-post').classList.remove('hidden');
+}
+function clearForm(){
+  ['np-titulo','np-autor','np-excerpt','np-cover-url'].forEach(id=>$(id).value='');
+  $('np-cat').selectedIndex=0;
+  $('np-cover-preview').style.display='none';
+  $('np-blocks').innerHTML=''; blockCount=0;
+}
+function closeModal(){ $('modal-post').classList.add('hidden'); }
+
+/* ── BLOQUES ── */
+document.querySelectorAll('[data-add-block]').forEach(btn =>
+  btn.onclick = () => addBlock(btn.dataset.addBlock));
+
+function addBlock(type, value=''){
+  const id = 'blk-'+blockCount++;
+  let html='';
+  const rmBtn = `<button type="button" onclick="document.getElementById('${id}').remove()"
+    style="background:none;border:none;cursor:pointer;color:var(--muted);font-size:1.1rem;padding:.3rem;flex-shrink:0;">×</button>`;
+  if(type==='text'){
+    html=`<div id="${id}" style="display:flex;gap:.5rem;align-items:flex-start;">
+      <div style="flex:1;"><div class="np-block-item">
+        <span class="np-block-type">Texto</span>
+        <textarea id="${id}-val" style="flex:1;background:none;border:none;outline:none;font-family:'Inter',sans-serif;font-size:.85rem;color:var(--ink);resize:vertical;min-height:70px;width:100%;" placeholder="Escribí el contenido…">${value}</textarea>
+      </div></div>${rmBtn}</div>`;
+  } else if(type==='photo'){
+    html=`<div id="${id}" style="display:flex;gap:.5rem;align-items:flex-start;">
+      <div style="flex:1;"><div class="np-block-item">
+        <span class="np-block-type">Foto</span>
+        <input id="${id}-val" type="text" value="${value}"
+          style="flex:1;min-width:120px;background:none;border:none;outline:none;font-family:'Inter',sans-serif;font-size:.85rem;color:var(--ink);"
+          placeholder="URL de la imagen…"/>
+        <button type="button" class="np-block-btn" data-upload-block="${id}" title="Requiere Storage (pago) — pegá una URL" style="opacity:.4;cursor:not-allowed;">📁 Subir</button>
+        <input type="file" id="${id}-file" accept="image/*" style="display:none;"/>
+      </div>
+      <div class="upload-progress" id="${id}-progress"><div class="upload-progress-bar" id="${id}-bar"></div></div>
+      <img id="${id}-preview" class="media-preview" src="${value}" style="display:${value?'block':'none'};" alt=""/>
+      </div>${rmBtn}</div>`;
+  } else {
+    html=`<div id="${id}" style="display:flex;gap:.5rem;align-items:flex-start;">
+      <div style="flex:1;"><div class="np-block-item">
+        <span class="np-block-type">Video</span>
+        <input id="${id}-val" type="text" value="${value}"
+          style="flex:1;background:none;border:none;outline:none;font-family:'Inter',sans-serif;font-size:.85rem;color:var(--ink);width:100%;"
+          placeholder="YouTube, Vimeo, Google Drive o URL directa…"/>
+      </div></div>${rmBtn}</div>`;
+  }
+  $('np-blocks').insertAdjacentHTML('beforeend', html);
+
+  // Vincular input de texto a preview, y botón de subir
+  if(type==='photo'){
+    const inp = $(id+'-val');
+    const img = $(id+'-preview');
+    inp.oninput = () => { img.src=inp.value; img.style.display=inp.value?'block':'none'; };
+    $('np-blocks').querySelector(`[data-upload-block="${id}"]`).onclick =
+      () => $(id+'-file').click();
+    $(id+'-file').onchange = e => uploadBlockFile(id, e.target);
+  }
+}
+
+/* ── PORTADA: preview y upload ── */
+$('np-cover-url').oninput = () => {
+  const url = $('np-cover-url').value.trim();
+  const img = $('np-cover-preview');
+  img.src=url; img.style.display=url?'block':'none';
+};
+$('btn-cover-upload').onclick = () => $('np-cover-file').click();
+$('np-cover-file').onchange = e => {
+  const file = e.target.files[0]; if(!file) return;
+  uploadToStorage(`novedades/portadas/${Date.now()}_${file.name}`, file,
+    $('cover-bar'), $('cover-progress'),
+    url => { $('np-cover-url').value=url; $('np-cover-preview').src=url; $('np-cover-preview').style.display='block'; }
+  );
+};
+
+function uploadBlockFile(id, input){
+  const file = input.files[0]; if(!file) return;
+  uploadToStorage(`novedades/bloques/${Date.now()}_${file.name}`, file,
+    $(id+'-bar'), $(id+'-progress'),
+    url => {
+      const inp=$(id+'-val'); if(inp) inp.value=url;
+      const img=$(id+'-preview'); if(img){ img.src=url; img.style.display='block'; }
+    }
+  );
+}
+
+function uploadToStorage(path, file, barEl, progEl, onDone){
+  // Storage requiere plan de pago — usá una URL externa (ibb.co, Drive, etc.)
+  toast('Para subir fotos pegá una URL externa (ibb.co, Google Drive, etc.)', true);
+  if(progEl) progEl.style.display='none';
+}
+
+/* ── RECOLECTAR BLOQUES ── */
+function collectBlocks(){
+  return [...$('np-blocks').querySelectorAll('[id^="blk-"]')].reduce((acc,div)=>{
+    const typeEl=div.querySelector('.np-block-type');
+    if(!typeEl) return acc;
+    const t=typeEl.textContent.trim().toLowerCase();
+    const type=t==='texto'?'text':t==='foto'?'photo':'video';
+    const valEl=$(div.id+'-val');
+    const val=valEl ? (valEl.tagName==='TEXTAREA'?valEl.value:valEl.value).trim() : '';
+    if(val) acc.push({type,content:val});
+    return acc;
+  },[]);
+}
+
+/* ── GUARDAR ── */
+$('btn-save').onclick = async () => {
+  const titulo=$('np-titulo').value.trim();
+  if(!titulo){ alert('El título es obligatorio.'); return; }
+  const cat=$('np-cat').value, autor=$('np-autor').value.trim()||'Institución',
+        excerpt=$('np-excerpt').value.trim()||titulo,
+        coverUrl=$('np-cover-url').value.trim(), blocks=collectBlocks();
+  const date=new Date().toLocaleDateString('es-AR',{day:'numeric',month:'short',year:'numeric'});
+  $('btn-save').disabled=true; $('btn-save').textContent='Guardando…';
+  try {
+    if(editingId){
+      await updateDoc(doc(db,'novedades',editingId),{title:titulo,cat,autor,excerpt,coverUrl,blocks});
+      toast('✓ Novedad actualizada');
+    } else {
+      await addDoc(collection(db,'novedades'),
+        {title:titulo,cat,autor,excerpt,coverUrl,blocks,date,likes:0,createdAt:serverTimestamp()});
+      toast('✓ Novedad publicada');
+    }
+    closeModal();
+  } catch(e){ toast('Error: '+e.message,true); }
+  finally {
+    $('btn-save').disabled=false;
+    $('btn-save').textContent=editingId?'Guardar cambios':'Publicar novedad';
+  }
+};
+
+/* ── BORRAR ── */
+function askDelete(id){ deletingId=id; $('modal-confirm').classList.remove('hidden'); }
+function closeConfirm(){ $('modal-confirm').classList.add('hidden'); deletingId=null; }
+$('btn-confirm-del').onclick = async () => {
+  if(!deletingId) return;
+  try { await deleteDoc(doc(db,'novedades',deletingId)); toast('🗑️ Novedad eliminada'); }
+  catch(e){ toast('Error: '+e.message,true); }
+  closeConfirm();
+};
+
+/* ── TOAST ── */
+function toast(msg, isError=false){
+  const t=$('toast');
+  t.textContent=msg; t.className='toast show'+(isError?' error':'');
+  setTimeout(()=>t.classList.remove('show'),3000);
+}
+</script>
+  <!-- ══ WHATSAPP FLOTANTE ══ -->
+<style>
+.wa-float{position:fixed;bottom:1.5rem;right:1.5rem;z-index:9999;display:flex;flex-direction:column;align-items:flex-end;gap:.5rem;}
+.wa-tooltip{background:#fff;color:#13134F;font-family:Inter,sans-serif;font-size:.78rem;font-weight:500;padding:.45rem .85rem;border-radius:100px;box-shadow:0 4px 16px rgba(0,0,0,.15);white-space:nowrap;opacity:0;transform:translateX(8px);transition:all .25s;pointer-events:none;}
+.wa-btn{width:56px;height:56px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 18px rgba(37,211,102,.45);transition:transform .25s,box-shadow .25s;text-decoration:none;animation:wa-pulse 2.5s ease-in-out infinite;}
+.wa-btn:hover{transform:scale(1.1);box-shadow:0 6px 24px rgba(37,211,102,.6);}
+.wa-float:hover .wa-tooltip{opacity:1;transform:translateX(0);}
+@keyframes wa-pulse{0%,100%{box-shadow:0 4px 18px rgba(37,211,102,.45);}50%{box-shadow:0 4px 28px rgba(37,211,102,.75);}}
+</style>
+<div class="wa-float">
+  <span class="wa-tooltip">¡Escribinos por WhatsApp!</span>
+  <a class="wa-btn" href="https://wa.me/5491124670668" target="_blank" rel="noopener" aria-label="WhatsApp">
+    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+</div>
+<!-- ══ / WHATSAPP FLOTANTE ══ -->
+
+</body>
+</body>
+</html>
+
