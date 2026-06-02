@@ -177,6 +177,135 @@ a{color:var(--primary);text-decoration:none;}
 .infra-title{font-family:'Playfair Display',serif;font-size:.95rem;color:var(--primary);margin-bottom:.3rem;font-weight:600;}
 .infra-text{font-size:.8rem;color:var(--muted);line-height:1.68;}
 
+/* ══════════════════════════════════════
+   PILAR NEW — grid sin bordes internos
+══════════════════════════════════════ */
+.pilar-new{
+  padding:2.25rem 2rem;
+  border-right:1px solid var(--border);
+  background:var(--white);
+  cursor:pointer;
+  transition:background .3s;
+  position:relative;
+  overflow:hidden;
+}
+.pilar-new:last-child{border-right:none;}
+.pilar-new:hover{background:var(--primary-soft);}
+.pilar-new--dark{background:var(--primary);}
+.pilar-new--dark:hover{background:#1a1a6e;}
+.pilar-new--dark .pilar-new-num{color:rgba(255,255,255,.12);}
+.pilar-new--dark .pilar-new-title{color:#fff;}
+.pilar-new--dark .pilar-new-text{color:rgba(255,255,255,.65);}
+.pilar-new--dark .pilar-new-cta{color:var(--accent);}
+.pilar-new--gold{border-top:3px solid var(--accent);}
+.pilar-new-num{
+  font-family:'Playfair Display',serif;font-size:3rem;font-weight:700;
+  font-style:italic;color:rgba(19,19,79,.07);line-height:1;margin-bottom:.5rem;
+}
+.pilar-new-icon{font-size:1.6rem;margin-bottom:.75rem;display:block;}
+.pilar-new-title{
+  font-family:'Playfair Display',serif;font-size:1.05rem;
+  color:var(--primary);margin-bottom:.55rem;font-weight:600;line-height:1.2;
+}
+.pilar-new-text{font-size:.82rem;color:var(--muted);line-height:1.72;margin-bottom:1rem;}
+.pilar-new-cta{
+  font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--primary);opacity:.5;transition:opacity .2s;
+}
+.pilar-new:hover .pilar-new-cta{opacity:1;}
+
+/* ══════════════════════════════════════
+   JUDAICA CARDS
+══════════════════════════════════════ */
+.judaica-card{
+  background:var(--white);border:1px solid var(--border);
+  padding:2rem;display:flex;gap:1.25rem;align-items:flex-start;
+  box-shadow:0 2px 8px rgba(19,19,79,.04);
+  transition:border-color .3s,box-shadow .3s;
+}
+.judaica-card:hover{border-color:var(--primary);box-shadow:0 8px 24px rgba(19,19,79,.1);}
+.judaica-icon{font-size:1.75rem;flex-shrink:0;margin-top:.1rem;}
+.judaica-body{flex:1;}
+.judaica-title{
+  font-family:'Playfair Display',serif;font-size:1.05rem;
+  color:var(--primary);font-weight:600;margin-bottom:.5rem;
+}
+.judaica-text{font-size:.84rem;color:var(--muted);line-height:1.75;margin-bottom:.85rem;}
+.judaica-list{list-style:none;display:flex;flex-direction:column;gap:.3rem;}
+.judaica-list li{
+  font-size:.78rem;color:var(--primary);opacity:.7;
+  padding-left:1rem;position:relative;
+}
+.judaica-list li::before{
+  content:'';position:absolute;left:0;top:.5em;
+  width:5px;height:5px;border-radius:50%;background:var(--accent);
+}
+
+/* ══════════════════════════════════════
+   IDIOMA NEW
+══════════════════════════════════════ */
+.idioma-new{
+  padding:2.25rem 2rem;background:var(--white);
+  transition:background .3s;
+}
+.idioma-new:hover{background:var(--primary-soft);}
+.idioma-new--accent{background:var(--primary);}
+.idioma-new--accent:hover{background:#1a1a6e;}
+.idioma-new--accent .idioma-new-lang{color:#fff;}
+.idioma-new--accent .idioma-new-sub{color:var(--accent);}
+.idioma-new--accent .idioma-new-desc{color:rgba(255,255,255,.65);}
+.idioma-new--accent .idioma-new-desde{color:rgba(255,255,255,.5);}
+.idioma-new--accent .idioma-new-desde strong{color:#fff;}
+.idioma-new--accent .idioma-feat li{color:rgba(255,255,255,.7);}
+.idioma-new--accent .idioma-feat li::before{background:var(--accent);}
+.idioma-new-flag{font-size:2.25rem;margin-bottom:.85rem;display:block;}
+.idioma-new-lang{
+  font-family:'Playfair Display',serif;font-size:1.35rem;
+  color:var(--primary);font-weight:600;margin-bottom:.2rem;
+}
+.idioma-new-sub{
+  font-size:.58rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:1rem;display:block;
+}
+.idioma-new-desc{font-size:.84rem;color:var(--muted);line-height:1.75;margin-bottom:1rem;}
+.idioma-new-desde{font-size:.75rem;color:var(--muted);margin-bottom:.85rem;}
+.idioma-new-desde strong{color:var(--primary);}
+.idioma-feat{list-style:none;display:flex;flex-direction:column;gap:.35rem;}
+.idioma-feat li{
+  font-size:.78rem;color:var(--muted);padding-left:1rem;position:relative;line-height:1.5;
+}
+.idioma-feat li::before{
+  content:'';position:absolute;left:0;top:.55em;
+  width:4px;height:4px;border-radius:50%;background:var(--accent);
+}
+
+/* ══════════════════════════════════════
+   INFRA NEW
+══════════════════════════════════════ */
+.infra-new{
+  background:var(--white);border:1px solid var(--border);
+  padding:1.75rem;
+  box-shadow:0 2px 6px rgba(19,19,79,.04);
+  transition:border-color .3s,transform .3s,box-shadow .3s;
+}
+.infra-new:hover{
+  border-color:var(--accent);
+  transform:translateY(-3px);
+  box-shadow:0 10px 24px rgba(19,19,79,.1);
+}
+.infra-new-icon{
+  width:48px;height:48px;background:var(--primary-soft);
+  border-radius:10px;display:flex;align-items:center;justify-content:center;
+  color:var(--primary);margin-bottom:1rem;
+  transition:background .3s;
+}
+.infra-new:hover .infra-new-icon{background:var(--primary);color:#fff;}
+.infra-new-title{
+  font-family:'Playfair Display',serif;font-size:1rem;
+  color:var(--primary);margin-bottom:.45rem;font-weight:600;
+}
+.infra-new-text{font-size:.82rem;color:var(--muted);line-height:1.72;}
+
 /* ── NIVEL BADGE ── */
 .level-badge{display:inline-flex;align-items:center;gap:.5rem;padding:.3rem .85rem;border-radius:100px;font-family:'Inter',sans-serif;font-size:.58rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;margin-bottom:.85rem;}
 .badge-inicial{background:var(--inicial);color:var(--primary);}
@@ -500,40 +629,244 @@ Nuestro Legado
   </div>
   <div class="tab-bar"><button class="tab active" onclick="switchTab(this)">Pilares</button><button class="tab" onclick="switchTab(this)">Área Judaica</button><button class="tab" onclick="switchTab(this)">Idiomas</button><button class="tab" onclick="switchTab(this)">Infraestructura</button></div>
   <div class="pi">
+
+    <!-- ══════════ PILARES ══════════ -->
     <div class="panel active">
-      <div class="g3">
-        <div class="pilar-card" onclick="openPropModal('p1','Orgullo de ser Iehudí','Que nuestros alumnos deseen estudiar Torá y cumplir Mitzvot con alegría y entusiasmo genuino. Este pilar es el centro de nuestra propuesta: no basta con transmitir conocimiento, queremos encender la chispa del amor a la Torá y las Mitzvot en cada alumno.','','')"><div class="pilar-num">01</div><div class="pilar-title">Orgullo de ser Iehudí</div><p class="pilar-text">Que nuestros alumnos deseen estudiar Torá y cumplir Mitzvot con alegría y entusiasmo genuino.</p></div>
-        <div class="pilar-card" onclick="openPropModal('p2','Cada niño es único','Todo aprendizaje sirve como medio para ser mejor ser humano y mejor judío. Cada alumno tiene su propio ritmo, sus propias fortalezas y sus propios desafíos. Nuestra propuesta pedagógica se adapta a cada trayectoria individual con acompañamiento personalizado.','','')"><div class="pilar-num">02</div><div class="pilar-title">Cada niño es único</div><p class="pilar-text">Todo aprendizaje sirve como medio para ser mejor ser humano y mejor judío.</p></div>
-        <div class="pilar-card" onclick="openPropModal('p3','Libertad y espíritu crítico','Formamos graduados con creatividad, madurez y autonomía para los estudios superiores. El pensamiento crítico no está reñido con la Torá, sino que forma parte esencial de una educación judía profunda y honesta.','','')"><div class="pilar-num">03</div><div class="pilar-title">Libertad y espíritu crítico</div><p class="pilar-text">Formamos graduados con creatividad, madurez y autonomía para los estudios superiores.</p></div>
-        <div class="pilar-card" onclick="openPropModal('p4','Midot · Cualidades humanas','Responsabilidad, humildad, trabajo honesto y vocación de servicio. Las Midot Tovot son el ADN de nuestra institución. Cada clase, cada interacción, cada proyecto busca reforzar los valores humanos que hacen a un buen Iehudí y a un buen ciudadano.','','')"><div class="pilar-num">04</div><div class="pilar-title">Midot · Cualidades humanas</div><p class="pilar-text">Responsabilidad, humildad, trabajo honesto y vocación de servicio.</p></div>
-        <div class="pilar-card" onclick="openPropModal('p5','Arte y Creatividad','Talleres de plástica, música y actividades artísticas que desarrollan capacidades expresivas. A través del proyecto TorArt y los talleres de música REGASHOT, el arte es un vehículo para transmitir valores y belleza judaica.','','')"><div class="pilar-num">05</div><div class="pilar-title">Arte y Creatividad</div><p class="pilar-text">Talleres de plástica, música y actividades artísticas que desarrollan capacidades expresivas.</p></div>
-        <div class="pilar-card" onclick="openPropModal('p6','Familia y Comunidad','La familia es la primera escuela. El colegio es su extensión natural y cálida. Trabajamos en alianza con cada familia para que el hogar y la institución transmitan los mismos valores y la misma visión de vida judía.','','')"><div class="pilar-num">06</div><div class="pilar-title">Familia y Comunidad</div><p class="pilar-text">La familia es la primera escuela. El colegio es su extensión natural y cálida.</p></div>
+      <!-- fila superior: 3 pilares grandes con fondo alterno -->
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-bottom:0;border:1px solid var(--border);">
+
+        <div class="pilar-new" onclick="openPropModal('p1','Orgullo de ser Iehudí','Que nuestros alumnos deseen estudiar Torá y cumplir Mitzvot con alegría y entusiasmo genuino. Este pilar es el centro de nuestra propuesta: no basta con transmitir conocimiento, queremos encender la chispa del amor a la Torá y las Mitzvot en cada alumno.','','')">
+          <div class="pilar-new-num">01</div>
+          <div class="pilar-new-icon">✡</div>
+          <div class="pilar-new-title">Orgullo de ser Iehudí</div>
+          <div class="pilar-new-text">Que cada alumno desee estudiar Torá y cumplir Mitzvot con alegría genuina, viviendo con orgullo su identidad judía.</div>
+          <div class="pilar-new-cta">Conocé más →</div>
+        </div>
+
+        <div class="pilar-new pilar-new--dark" onclick="openPropModal('p2','Cada niño es único','Todo aprendizaje sirve como medio para ser mejor ser humano y mejor judío. Cada alumno tiene su propio ritmo, sus propias fortalezas y sus propios desafíos. Nuestra propuesta pedagógica se adapta a cada trayectoria individual con acompañamiento personalizado.','','')">
+          <div class="pilar-new-num">02</div>
+          <div class="pilar-new-icon">🌱</div>
+          <div class="pilar-new-title">Cada niño es único</div>
+          <div class="pilar-new-text">Acompañamos cada trayectoria con atención personalizada. Todo aprendizaje sirve para crecer como ser humano y como judío.</div>
+          <div class="pilar-new-cta">Conocé más →</div>
+        </div>
+
+        <div class="pilar-new" onclick="openPropModal('p3','Libertad y espíritu crítico','Formamos graduados con creatividad, madurez y autonomía para los estudios superiores. El pensamiento crítico no está reñido con la Torá, sino que forma parte esencial de una educación judía profunda y honesta.','','')">
+          <div class="pilar-new-num">03</div>
+          <div class="pilar-new-icon">💡</div>
+          <div class="pilar-new-title">Libertad y espíritu crítico</div>
+          <div class="pilar-new-text">Egresados con creatividad, madurez y autonomía intelectual. El pensamiento crítico es parte esencial de una educación judía profunda.</div>
+          <div class="pilar-new-cta">Conocé más →</div>
+        </div>
+
+      </div>
+      <!-- fila inferior: 3 pilares con acento dorado -->
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--border);border-top:none;">
+
+        <div class="pilar-new pilar-new--gold" onclick="openPropModal('p4','Midot · Cualidades humanas','Responsabilidad, humildad, trabajo honesto y vocación de servicio. Las Midot Tovot son el ADN de nuestra institución. Cada clase, cada interacción, cada proyecto busca reforzar los valores humanos que hacen a un buen Iehudí y a un buen ciudadano.','','')">
+          <div class="pilar-new-num">04</div>
+          <div class="pilar-new-icon">💛</div>
+          <div class="pilar-new-title">Midot · Cualidades humanas</div>
+          <div class="pilar-new-text">Responsabilidad, humildad, honestidad y vocación de servicio. Las Midot Tovot son el ADN de nuestra institución.</div>
+          <div class="pilar-new-cta">Conocé más →</div>
+        </div>
+
+        <div class="pilar-new" onclick="openPropModal('p5','Arte y Creatividad','Talleres de plástica, música y actividades artísticas que desarrollan capacidades expresivas. A través del proyecto TorArt y los talleres de música REGASHOT, el arte es un vehículo para transmitir valores y belleza judaica.','','')">
+          <div class="pilar-new-num">05</div>
+          <div class="pilar-new-icon">🎨</div>
+          <div class="pilar-new-title">Arte y Creatividad</div>
+          <div class="pilar-new-text">TorArt y los talleres REGASHOT: el arte como vehículo para transmitir valores, belleza judaica y expresión genuina.</div>
+          <div class="pilar-new-cta">Conocé más →</div>
+        </div>
+
+        <div class="pilar-new pilar-new--dark" onclick="openPropModal('p6','Familia y Comunidad','La familia es la primera escuela. El colegio es su extensión natural y cálida. Trabajamos en alianza con cada familia para que el hogar y la institución transmitan los mismos valores y la misma visión de vida judía.','','')">
+          <div class="pilar-new-num">06</div>
+          <div class="pilar-new-icon">🏠</div>
+          <div class="pilar-new-title">Familia y Comunidad</div>
+          <div class="pilar-new-text">La familia es la primera escuela. Trabajamos en alianza con cada hogar para transmitir los mismos valores y visión de vida judía.</div>
+          <div class="pilar-new-cta">Conocé más →</div>
+        </div>
+
       </div>
     </div>
+
+    <!-- ══════════ ÁREA JUDAICA ══════════ -->
     <div class="panel">
-      <div class="hbox gold-top"><div class="hbox-title">Torah im Derech Eretz</div><div class="hbox-text">Siguiendo la escuela del Rab. Samson Raphael Hirsch: síntesis armoniosa entre la tradición judía y la participación activa en la sociedad contemporánea.</div></div>
-      <div class="g2" style="margin-top:1.5rem;">
-        <div class="act-card"><div class="act-ico">📖</div><div><div class="act-title">Estudio de Torá</div><div class="act-text">Desde el Nivel Inicial, profundizándose cada año con alegría.</div></div></div>
-        <div class="act-card"><div class="act-ico">🕍</div><div><div class="act-title">Kabalat Shabat</div><div class="act-text">Cada viernes, alumnos y docentes celebran juntos la entrada del Shabbat.</div></div></div>
-        <div class="act-card"><div class="act-ico">✍️</div><div><div class="act-title">Escritura Rashí</div><div class="act-text">Acceso a los comentarios clásicos de la Torá desde el Nivel Primario.</div></div></div>
-        <div class="act-card"><div class="act-ico">🌍</div><div><div class="act-title">Israel y Colectividad</div><div class="act-text">Solidaridad con el pueblo judío y el Estado de Israel.</div></div></div>
+
+      <!-- hero statement -->
+      <div style="background:linear-gradient(135deg,var(--primary) 0%,#1a1a6e 100%);padding:2.75rem 3rem;margin-bottom:2.5rem;position:relative;overflow:hidden;">
+        <div style="position:absolute;right:2rem;top:50%;transform:translateY(-50%);font-size:11rem;opacity:.05;color:#fff;font-family:'Playfair Display',serif;line-height:1;">תורה</div>
+        <div style="position:relative;z-index:1;">
+          <p style="font-size:.58rem;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--accent);margin-bottom:.85rem;">Nuestra identidad</p>
+          <p style="font-family:'Playfair Display',serif;font-size:clamp(1.2rem,2.5vw,1.7rem);color:#fff;line-height:1.5;margin-bottom:.85rem;">
+            <em style="font-style:italic;">Torah im Derech Eretz</em> — síntesis armoniosa entre la tradición judía y la participación plena en la sociedad contemporánea.
+          </p>
+          <p style="font-size:.88rem;color:rgba(255,255,255,.65);line-height:1.8;max-width:65ch;">Siguiendo la escuela del Rab. Samson Raphael Hirsch, formamos iehudim que estudian y viven la Torá con profundidad, orgullo y alegría, mientras se desenvuelven con excelencia en el mundo actual.</p>
+        </div>
+      </div>
+
+      <!-- 4 pilares judaicos en grid 2x2 con diseño rico -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:2rem;">
+
+        <div class="judaica-card">
+          <div class="judaica-icon">📖</div>
+          <div class="judaica-body">
+            <div class="judaica-title">Estudio de Torá</div>
+            <div class="judaica-text">Desde el Nivel Inicial y profundizándose cada año. Aprendemos Torá, Mishná, Guemará y comentaristas clásicos con alegría y compromiso genuino.</div>
+            <ul class="judaica-list">
+              <li>Parashá semanal en todos los niveles</li>
+              <li>Mishná desde el Nivel Primario</li>
+              <li>Guemará en Secundario Varones</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="judaica-card">
+          <div class="judaica-icon">🕍</div>
+          <div class="judaica-body">
+            <div class="judaica-title">Vivencia del Calendario Hebreo</div>
+            <div class="judaica-text">Cada festividad es una oportunidad pedagógica. Celebramos Shabat, Jamaguim y momentos especiales del año judío con la comunidad escolar.</div>
+            <ul class="judaica-list">
+              <li>Kabalat Shabat todos los viernes</li>
+              <li>Actos de Jamaguim con familias</li>
+              <li>Seudot y vivencias comunitarias</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="judaica-card">
+          <div class="judaica-icon">✍️</div>
+          <div class="judaica-body">
+            <div class="judaica-title">Escritura y Lengua Hebrea</div>
+            <div class="judaica-text">El hebreo no es solo un idioma: es la llave a las fuentes. Incorporamos escritura Rashí en Primaria para acceder a los grandes comentaristas.</div>
+            <ul class="judaica-list">
+              <li>Hebreo oral y escrito desde el Inicial</li>
+              <li>Escritura Rashí desde 3° grado</li>
+              <li>Lectura de fuentes en el original</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="judaica-card">
+          <div class="judaica-icon">🌍</div>
+          <div class="judaica-body">
+            <div class="judaica-title">Israel y Colectividad</div>
+            <div class="judaica-text">Cultivamos un lazo profundo con el pueblo judío en todo el mundo y con el Estado de Israel, fortaleciendo la identidad y la responsabilidad colectiva.</div>
+            <ul class="judaica-list">
+              <li>Programa de sionismo y Alyá</li>
+              <li>Actividades con la kehilá</li>
+              <li>Viaje a Israel (Secundario)</li>
+            </ul>
+          </div>
+        </div>
+
       </div>
     </div>
+
+    <!-- ══════════ IDIOMAS ══════════ -->
     <div class="panel">
-      <div class="g3">
-        <div class="idioma-card"><span class="idioma-emoji">🇦🇷</span><div class="idioma-name">Castellano</div><div class="idioma-text">Lengua materna y vehículo del curriculum oficial en toda la escolaridad.</div></div>
-        <div class="idioma-card"><span class="idioma-emoji">✡️</span><div class="idioma-name">עברית Hebreo</div><div class="idioma-text">Segunda lengua desde el Nivel Inicial. Se incorpora escritura Rashí en Primaria.</div></div>
-        <div class="idioma-card"><span class="idioma-emoji">🇬🇧</span><div class="idioma-name">English</div><div class="idioma-text">Tercera lengua desde el Nivel Inicial. Metodología comunicativa para el mundo global.</div></div>
+
+      <div style="margin-bottom:2.5rem;">
+        <p class="s-label">Propuesta lingüística</p>
+        <p style="font-family:'Playfair Display',serif;font-size:clamp(1.2rem,2.5vw,1.65rem);color:var(--primary);line-height:1.4;margin-top:.5rem;max-width:60ch;">Tres lenguas, tres mundos. Una sola identidad.</p>
+        <p style="font-size:.9rem;color:var(--muted);line-height:1.8;margin-top:.6rem;max-width:65ch;">Nuestros alumnos egresan manejando con soltura el castellano, el hebreo y el inglés — herramientas esenciales para desenvolverse como iehudim íntegros en el mundo de hoy.</p>
+      </div>
+
+      <!-- 3 idiomas: cada uno ocupa una columna tipo "showcase" -->
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--border);">
+
+        <!-- Castellano -->
+        <div class="idioma-new" style="border-right:1px solid var(--border);">
+          <div class="idioma-new-flag">🇦🇷</div>
+          <div class="idioma-new-lang">Castellano</div>
+          <div class="idioma-new-sub">Lengua materna</div>
+          <p class="idioma-new-desc">Vehículo del currículo oficial en toda la escolaridad. Desarrollamos comprensión lectora, producción escrita y oralidad con rigurosidad académica.</p>
+          <div class="idioma-new-desde">Desde: <strong>Nivel Inicial</strong></div>
+          <ul class="idioma-feat">
+            <li>Lengua y Literatura</li>
+            <li>Comprensión y producción textual</li>
+            <li>Oralidad y debate</li>
+          </ul>
+        </div>
+
+        <!-- Hebreo -->
+        <div class="idioma-new idioma-new--accent" style="border-right:1px solid var(--border);">
+          <div class="idioma-new-flag">✡️</div>
+          <div class="idioma-new-lang">עברית · Hebreo</div>
+          <div class="idioma-new-sub">Segunda lengua · Lengua del alma</div>
+          <p class="idioma-new-desc">Más que un idioma: la llave a las fuentes. Se aprende desde el Inicial de forma oral y escrita, incorporando la escritura Rashí en Primaria.</p>
+          <div class="idioma-new-desde">Desde: <strong>Nivel Inicial</strong></div>
+          <ul class="idioma-feat">
+            <li>Hebreo oral y escrito</li>
+            <li>Escritura Rashí (desde 3°)</li>
+            <li>Lectura de fuentes en original</li>
+          </ul>
+        </div>
+
+        <!-- Inglés -->
+        <div class="idioma-new">
+          <div class="idioma-new-flag">🇬🇧</div>
+          <div class="idioma-new-lang">English</div>
+          <div class="idioma-new-sub">Tercera lengua · Global</div>
+          <p class="idioma-new-desc">Metodología comunicativa desde el Nivel Inicial. Preparamos alumnos para el mundo globalizado con articulación con Cambridge y Trinity College.</p>
+          <div class="idioma-new-desde">Desde: <strong>Nivel Inicial</strong></div>
+          <ul class="idioma-feat">
+            <li>Enfoque comunicativo</li>
+            <li>Articulación Cambridge / Trinity</li>
+            <li>Speaking & Writing intensivo</li>
+          </ul>
+        </div>
+
       </div>
     </div>
+
+    <!-- ══════════ INFRAESTRUCTURA ══════════ -->
     <div class="panel">
-      <div class="g2">
-        <div class="infra-item"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><div class="infra-title">Biblioteca Iosef Oppenheimer</div><div class="infra-text">Materiales en castellano, hebreo e inglés para todos los niveles.</div></div>
-        <div class="infra-item"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/></svg><div class="infra-title">Salas de Arte y Música</div><div class="infra-text">Espacios de plástica y música para el desarrollo artístico.</div></div>
-        <div class="infra-item"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg><div class="infra-title">Sinagoga</div><div class="infra-text">Infraestructura religiosa propia para la vivencia del calendario hebreo.</div></div>
-        <div class="infra-item"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/></svg><div class="infra-title">Comedor Kosher</div><div class="infra-text">Cocinas separadas para carne y lácteos. Jornada completa.</div></div>
+
+      <div style="margin-bottom:2.5rem;">
+        <p class="s-label">Nuestros espacios</p>
+        <p style="font-family:'Playfair Display',serif;font-size:clamp(1.2rem,2.5vw,1.65rem);color:var(--primary);line-height:1.4;margin-top:.5rem;max-width:60ch;">Tres sedes diseñadas para aprender, crecer y celebrar.</p>
+        <p style="font-size:.9rem;color:var(--muted);line-height:1.8;margin-top:.6rem;max-width:65ch;">Cada espacio fue pensado para acompañar el desarrollo integral de nuestros alumnos: desde la vida cotidiana en el aula hasta los momentos más significativos del calendario hebreo.</p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-bottom:1.5rem;">
+
+        <div class="infra-new">
+          <div class="infra-new-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          </div>
+          <div class="infra-new-title">Biblioteca Iosef Oppenheimer</div>
+          <div class="infra-new-text">Acervo en castellano, hebreo e inglés para todos los niveles. Espacio de consulta, investigación y placer lector.</div>
+        </div>
+
+        <div class="infra-new">
+          <div class="infra-new-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+          </div>
+          <div class="infra-new-title">Salas de Arte y Música</div>
+          <div class="infra-new-text">Talleres de plástica y salas equipadas para el programa REGASHOT. El arte como lenguaje y como transmisión de valores judaicos.</div>
+        </div>
+
+        <div class="infra-new">
+          <div class="infra-new-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+          </div>
+          <div class="infra-new-title">Sinagoga Institucional</div>
+          <div class="infra-new-text">Infraestructura religiosa propia integrada al edificio. Espacio central para la vivencia del Shabat, Jamaguim y la tefilá diaria.</div>
+        </div>
+
+        <div class="infra-new">
+          <div class="infra-new-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+          </div>
+          <div class="infra-new-title">Comedor Kosher</div>
+          <div class="infra-new-text">Cocinas separadas para carne y lácteos con supervisión rabínica permanente. Servicio de jornada completa para todos los niveles.</div>
+        </div>
+
+
       </div>
     </div>
+
   </div>
 </div>
 
