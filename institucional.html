@@ -205,39 +205,103 @@ a{color:var(--primary);text-decoration:none;}
 .he{font-family:'Playfair Display',serif;font-size:.82em;color:var(--accent);letter-spacing:.05em;}
 
 /* ══════════════════════════════════════
-   STAFF CARDS
+   STAFF CARDS — modern photo + overlay
 ══════════════════════════════════════ */
 .staff-section{width:100%;}
-.staff-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-bottom:.5rem;}
+.staff-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-bottom:.5rem;}
 .staff-grid-4{grid-template-columns:repeat(4,1fr);}
 @media(max-width:900px){.staff-grid{grid-template-columns:repeat(2,1fr);}.staff-grid-4{grid-template-columns:repeat(2,1fr);}}
 @media(max-width:560px){.staff-grid,.staff-grid-4{grid-template-columns:1fr;}}
 
-.staff-card{background:var(--white);border:1px solid var(--border);display:flex;gap:1rem;align-items:flex-start;padding:1.25rem;box-shadow:0 2px 8px rgba(19,19,79,.05);transition:transform .25s,box-shadow .25s;}
-.staff-card:hover{transform:translateY(-3px);box-shadow:0 8px 22px rgba(19,19,79,.1);}
-.staff-card-sm{flex-direction:column;align-items:center;text-align:center;}
+/* card base */
+.staff-card{
+  position:relative;overflow:hidden;
+  border-radius:0;
+  aspect-ratio:3/4;
+  box-shadow:0 4px 18px rgba(19,19,79,.12);
+  transition:transform .35s,box-shadow .35s;
+  cursor:default;
+  background:linear-gradient(160deg,#1a1a6e 0%,var(--primary) 100%);
+}
+.staff-card:hover{transform:translateY(-5px);box-shadow:0 16px 36px rgba(19,19,79,.2);}
 
+/* foto de fondo */
 .staff-avatar{
-  overflow: hidden;
-  border-radius: 50%;
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  object-fit:cover;
+  display:block;
+  transition:transform .5s ease;
+  border-radius:0;
 }
-.staff-avatar img{
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
+.staff-card:hover .staff-avatar{transform:scale(1.06);}
+
+/* iniciales cuando no hay foto */
+.staff-initials{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Playfair Display',serif;font-size:3rem;font-weight:700;
+  color:rgba(255,255,255,.25);letter-spacing:.05em;
 }
-.staff-avatar-sm{width:44px;height:44px;margin-bottom:.25rem;}
-.staff-initials{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;color:var(--white);letter-spacing:.05em;}
 
-.staff-info{flex:1;min-width:0;}
-.staff-card-sm .staff-info{width:100%;}
-.staff-name{font-family:'Playfair Display',serif;font-size:.95rem;color:var(--primary);font-weight:600;margin-bottom:.35rem;line-height:1.2;}
-.staff-role-tag{display:inline-block;font-size:.55rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--white);padding:.2rem .7rem;border-radius:100px;margin-bottom:.5rem;}
-.staff-desc{font-size:.78rem;color:var(--muted);line-height:1.65;margin-bottom:.4rem;}
-.staff-contact{font-size:.72rem;color:var(--muted);opacity:.8;}
+/* overlay degradado inferior */
+.staff-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(
+    to top,
+    rgba(10,10,50,.92) 0%,
+    rgba(10,10,50,.55) 45%,
+    rgba(10,10,50,.0) 100%
+  );
+  transition:background .35s;
+}
+.staff-card:hover .staff-overlay{
+  background:linear-gradient(
+    to top,
+    rgba(10,10,50,.97) 0%,
+    rgba(10,10,50,.65) 55%,
+    rgba(10,10,50,.05) 100%
+  );
+}
 
-.staff-divider{height:1px;background:var(--border);margin:2rem 0 1.5rem;}
+/* info sobre overlay */
+.staff-info{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:1.4rem 1.25rem 1.25rem;
+  z-index:2;
+}
+.staff-role-tag{
+  display:inline-block;font-size:.52rem;font-weight:700;
+  letter-spacing:.16em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:.4rem;
+}
+.staff-name{
+  font-family:'Playfair Display',serif;font-size:1rem;
+  color:#fff;font-weight:600;margin-bottom:.4rem;line-height:1.2;
+}
+.staff-desc{
+  font-size:.75rem;color:rgba(255,255,255,.65);line-height:1.6;
+  max-height:0;overflow:hidden;
+  transition:max-height .4s ease,opacity .4s ease;
+  opacity:0;
+}
+.staff-card:hover .staff-desc{max-height:120px;opacity:1;}
+.staff-contact{font-size:.68rem;color:rgba(255,180,0,.75);margin-top:.35rem;opacity:0;transition:opacity .4s .1s;}
+.staff-card:hover .staff-contact{opacity:1;}
+
+/* línea dorada decorativa */
+.staff-info::before{
+  content:'';display:block;width:28px;height:2px;
+  background:var(--accent);margin-bottom:.6rem;
+  transition:width .3s;
+}
+.staff-card:hover .staff-info::before{width:48px;}
+
+/* card compacta (admin) */
+.staff-card-sm{aspect-ratio:1/1;}
+.staff-card-sm .staff-name{font-size:.88rem;}
+
+.staff-divider{height:1px;background:var(--border);margin:2.5rem 0 1.5rem;}
 
 /* Nivel panels (2 niveles de navegación) */
 .nivel-panel{display:none;}
@@ -599,127 +663,180 @@ HERO INSTITUCIONAL — cómo editar:
 </div>
 
 <p class="s-label">Conducción General</p>
+        <div class="staff-grid">
 
-<div class="staff-grid">
+          <!-- Rabino Nisim Smechow -->
           <div class="staff-card">
-            <div class="staff-avatar staff-avatar-sm"><img src="https://i.ibb.co/21v78PpD/bb.jpg"><span class="staff-initials">NS</span>
-            </div>
+            <img class="staff-avatar" src="https://i.ibb.co/21v78PpD/bb.jpg" alt="Rabino Nisim Smechow"
+                 onerror="this.style.display='none'"/>
+            <div class="staff-initials">NS</div>
+            <div class="staff-overlay"></div>
             <div class="staff-info">
+              <div class="staff-role-tag">Director General</div>
               <div class="staff-name">Rabino Nisim Smechow</div>
-              <div class="staff-role-tag" style="background:var(--primary)">Director General</div>
               <div class="staff-desc">Máxima autoridad de la institución. Conduce el colegio con dedicación a la educación judía y al fortalecimiento de la comunidad Ajdut Israel de Belgrano.</div>
             </div>
           </div>
+
+          <!-- Rabino Daniel Mohadeb -->
           <div class="staff-card">
-            <div class="staff-avatar staff-avatar-sm"><img src="https://i.ibb.co/21v78PpD/bb.jpg"><span class="staff-initials">DM</span>
-            </div>
+            <img class="staff-avatar" src="https://i.ibb.co/21v78PpD/bb.jpg" alt="Rabino Daniel Mohadeb"
+                 onerror="this.style.display='none'"/>
+            <div class="staff-initials">DM</div>
+            <div class="staff-overlay"></div>
             <div class="staff-info">
+              <div class="staff-role-tag">Director Yeshivá y Kolel</div>
               <div class="staff-name">Rabino Daniel Mohadeb</div>
-              <div class="staff-role-tag" style="background:#c88b00">Director Yeshivá y Kolel</div>
               <div class="staff-desc">Responsable de la Yeshivá y el Kolel institucional. Articula el estudio profundo de Torá con el proyecto educativo.</div>
             </div>
           </div>
+
         </div>
 
         <div class="staff-divider"></div>
         <p class="s-label">Coordinación Pedagógica</p>
         <div class="staff-grid">
+
+          <!-- Marcela Rosemberg -->
           <div class="staff-card">
-            <div class="staff-avatar" style="background:linear-gradient(135deg,#5539F2,#7b5cf0)"><!-- FOTO_MR: reemplazá PEGAR_URL_FOTO_MR con la URL real --><img src="PEGAR_URL_FOTO_MR" alt="MR" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;"/><span class="staff-initials" style="display:none;">MR</span></div>
+            <img class="staff-avatar" src="PEGAR_URL_FOTO_MR" alt="Lic. Marcela Rosemberg"
+                 onerror="this.style.background='linear-gradient(135deg,#3320a0,#5539F2)';this.style.display='none'"/>
+            <div class="staff-initials">MR</div>
+            <div class="staff-overlay"></div>
             <div class="staff-info">
+              <div class="staff-role-tag">Coordinadora Pedagógica General</div>
               <div class="staff-name">Lic. Marcela Rosemberg</div>
-              <div class="staff-role-tag" style="background:var(--sec)">Coordinadora Pedagógica General</div>
               <div class="staff-desc">Coordina los lineamientos pedagógicos de todos los niveles. Lidera la articulación entre el área oficial y el área judaica.</div>
-              <div class="staff-contact"><span>📧 pedagogia@iosefcaro.org</span></div>
+              <div class="staff-contact">📧 pedagogia@iosefcaro.org</div>
             </div>
           </div>
+
+          <!-- Sandra Bloch -->
           <div class="staff-card">
-            <div class="staff-avatar" style="background:linear-gradient(135deg,#5539F2,#7b5cf0)"><!-- FOTO_SB: reemplazá PEGAR_URL_FOTO_SB con la URL real --><img src="PEGAR_URL_FOTO_SB" alt="SB" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;"/><span class="staff-initials" style="display:none;">SB</span></div>
+            <img class="staff-avatar" src="PEGAR_URL_FOTO_SB" alt="Lic. Sandra Bloch"
+                 onerror="this.style.display='none'"/>
+            <div class="staff-initials">SB</div>
+            <div class="staff-overlay"></div>
             <div class="staff-info">
+              <div class="staff-role-tag">Coordinadora de Inclusión</div>
               <div class="staff-name">Lic. Sandra Bloch</div>
-              <div class="staff-role-tag" style="background:var(--sec)">Coordinadora de Inclusión</div>
               <div class="staff-desc">Responsable del Departamento de Inclusión Educativa. Garantiza trayectorias escolares personalizadas para todos los alumnos.</div>
-              <div class="staff-contact"><span>📧 inclusion@iosefcaro.org</span></div>
+              <div class="staff-contact">📧 inclusion@iosefcaro.org</div>
             </div>
           </div>
+
+          <!-- Andrea Goldberg -->
           <div class="staff-card">
-            <div class="staff-avatar" style="background:linear-gradient(135deg,#5539F2,#7b5cf0)"><!-- FOTO_AG: reemplazá PEGAR_URL_FOTO_AG con la URL real --><img src="PEGAR_URL_FOTO_AG" alt="AG" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;"/><span class="staff-initials" style="display:none;">AG</span></div>
+            <img class="staff-avatar" src="PEGAR_URL_FOTO_AG" alt="Prof. Andrea Goldberg"
+                 onerror="this.style.display='none'"/>
+            <div class="staff-initials">AG</div>
+            <div class="staff-overlay"></div>
             <div class="staff-info">
+              <div class="staff-role-tag">Coordinadora Área Inglés</div>
               <div class="staff-name">Prof. Andrea Goldberg</div>
-              <div class="staff-role-tag" style="background:var(--sec)">Coordinadora Área Inglés</div>
               <div class="staff-desc">Lidera el programa bilingüe de toda la institución. Articulación con Cambridge y Trinity College.</div>
-              <div class="staff-contact"><span>📧 ingles@iosefcaro.org</span></div>
+              <div class="staff-contact">📧 ingles@iosefcaro.org</div>
             </div>
           </div>
+
         </div>
 
         <div class="staff-divider"></div>
         <p class="s-label">Departamento de Orientación y Psicología</p>
         <div class="staff-grid">
+
+          <!-- Viviana Naiman -->
           <div class="staff-card">
-            <div class="staff-avatar" style="background:linear-gradient(135deg,#0077B6,#0096c7)"><!-- FOTO_VN: reemplazá PEGAR_URL_FOTO_VN con la URL real --><img src="PEGAR_URL_FOTO_VN" alt="VN" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;"/><span class="staff-initials" style="display:none;">VN</span></div>
+            <img class="staff-avatar" src="PEGAR_URL_FOTO_VN" alt="Psic. Viviana Naiman"
+                 onerror="this.style.display='none'"/>
+            <div class="staff-initials">VN</div>
+            <div class="staff-overlay" style="background:linear-gradient(to top,rgba(0,50,90,.95) 0%,rgba(0,50,90,.5) 50%,transparent 100%);"></div>
             <div class="staff-info">
+              <div class="staff-role-tag">Psicóloga Institucional</div>
               <div class="staff-name">Psic. Viviana Naiman</div>
-              <div class="staff-role-tag" style="background:#0077B6">Psicóloga Institucional</div>
               <div class="staff-desc">Acompañamiento psicológico a alumnos y familias. Coordina el equipo de orientación escolar en todos los niveles.</div>
-              <div class="staff-contact"><span>📧 psicologia@iosefcaro.org</span></div>
+              <div class="staff-contact">📧 psicologia@iosefcaro.org</div>
             </div>
           </div>
+
+          <!-- Ruth Levy -->
           <div class="staff-card">
-            <div class="staff-avatar" style="background:linear-gradient(135deg,#0077B6,#0096c7)"><!-- FOTO_RL: reemplazá PEGAR_URL_FOTO_RL con la URL real --><img src="PEGAR_URL_FOTO_RL" alt="RL" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;"/><span class="staff-initials" style="display:none;">RL</span></div>
+            <img class="staff-avatar" src="PEGAR_URL_FOTO_RL" alt="Psicopedag. Ruth Levy"
+                 onerror="this.style.display='none'"/>
+            <div class="staff-initials">RL</div>
+            <div class="staff-overlay" style="background:linear-gradient(to top,rgba(0,50,90,.95) 0%,rgba(0,50,90,.5) 50%,transparent 100%);"></div>
             <div class="staff-info">
+              <div class="staff-role-tag">Psicopedagoga</div>
               <div class="staff-name">Psicopedag. Ruth Levy</div>
-              <div class="staff-role-tag" style="background:#0077B6">Psicopedagoga</div>
               <div class="staff-desc">Evaluación y acompañamiento psicopedagógico. Trabaja en coordinación con los docentes para optimizar los procesos de aprendizaje.</div>
-              <div class="staff-contact"><span>📧 psicopedagogia@iosefcaro.org</span></div>
+              <div class="staff-contact">📧 psicopedagogia@iosefcaro.org</div>
             </div>
           </div>
+
+          <!-- Ezequiel Tauber -->
           <div class="staff-card">
-            <div class="staff-avatar" style="background:linear-gradient(135deg,#0077B6,#0096c7)"><!-- FOTO_ET: reemplazá PEGAR_URL_FOTO_ET con la URL real --><img src="PEGAR_URL_FOTO_ET" alt="ET" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;"/><span class="staff-initials" style="display:none;">ET</span></div>
+            <img class="staff-avatar" src="PEGAR_URL_FOTO_ET" alt="Lic. Ezequiel Tauber"
+                 onerror="this.style.display='none'"/>
+            <div class="staff-initials">ET</div>
+            <div class="staff-overlay" style="background:linear-gradient(to top,rgba(0,50,90,.95) 0%,rgba(0,50,90,.5) 50%,transparent 100%);"></div>
             <div class="staff-info">
+              <div class="staff-role-tag">Orientador Vocacional</div>
               <div class="staff-name">Lic. Ezequiel Tauber</div>
-              <div class="staff-role-tag" style="background:#0077B6">Orientador Vocacional</div>
               <div class="staff-desc">Acompaña a los alumnos del nivel secundario en su orientación vocacional y en la transición hacia los estudios superiores.</div>
-              <div class="staff-contact"><span>📧 orientacion@iosefcaro.org</span></div>
+              <div class="staff-contact">📧 orientacion@iosefcaro.org</div>
             </div>
           </div>
+
         </div>
 
         <div class="staff-divider"></div>
         <p class="s-label">Administración y Gestión</p>
         <div class="staff-grid staff-grid-4">
+
           <div class="staff-card staff-card-sm">
-            <div class="staff-avatar staff-avatar-sm" style="background:linear-gradient(135deg,#E85D04,#f48c06)"><!-- FOTO_CF: reemplazá PEGAR_URL_FOTO_CF con la URL real --><img src="PEGAR_URL_FOTO_CF" alt="CF" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;"/><span class="staff-initials" style="display:none;">CF</span></div>
+            <img class="staff-avatar" src="PEGAR_URL_FOTO_CF" alt="Claudia Feinstein" onerror="this.style.display='none'"/>
+            <div class="staff-initials">CF</div>
+            <div class="staff-overlay"></div>
             <div class="staff-info">
+              <div class="staff-role-tag">Secretaria General</div>
               <div class="staff-name">Claudia Feinstein</div>
-              <div class="staff-role-tag" style="background:#E85D04">Secretaria General</div>
               <div class="staff-desc">Gestión administrativa de los tres niveles. Punto de contacto para familias.</div>
             </div>
           </div>
+
           <div class="staff-card staff-card-sm">
-            <div class="staff-avatar staff-avatar-sm" style="background:linear-gradient(135deg,#E85D04,#f48c06)"><!-- FOTO_MK: reemplazá PEGAR_URL_FOTO_MK con la URL real --><img src="PEGAR_URL_FOTO_MK" alt="MK" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;"/><span class="staff-initials" style="display:none;">MK</span></div>
+            <img class="staff-avatar" src="PEGAR_URL_FOTO_MK" alt="Marcos Kovalovsky" onerror="this.style.display='none'"/>
+            <div class="staff-initials">MK</div>
+            <div class="staff-overlay"></div>
             <div class="staff-info">
+              <div class="staff-role-tag">Administración Financiera</div>
               <div class="staff-name">Marcos Kovalovsky</div>
-              <div class="staff-role-tag" style="background:#E85D04">Administración Financiera</div>
               <div class="staff-desc">Gestión económica y financiera de la institución.</div>
             </div>
           </div>
+
           <div class="staff-card staff-card-sm">
-            <div class="staff-avatar staff-avatar-sm" style="background:linear-gradient(135deg,#E85D04,#f48c06)"><!-- FOTO_NB: reemplazá PEGAR_URL_FOTO_NB con la URL real --><img src="PEGAR_URL_FOTO_NB" alt="NB" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;"/><span class="staff-initials" style="display:none;">NB</span></div>
+            <img class="staff-avatar" src="PEGAR_URL_FOTO_NB" alt="Nora Baumgarten" onerror="this.style.display='none'"/>
+            <div class="staff-initials">NB</div>
+            <div class="staff-overlay"></div>
             <div class="staff-info">
+              <div class="staff-role-tag">Comunicación Institucional</div>
               <div class="staff-name">Nora Baumgarten</div>
-              <div class="staff-role-tag" style="background:#E85D04">Comunicación Institucional</div>
               <div class="staff-desc">Gestión de comunicación con familias y comunidad.</div>
             </div>
           </div>
+
           <div class="staff-card staff-card-sm">
-            <div class="staff-avatar staff-avatar-sm" style="background:linear-gradient(135deg,#E85D04,#f48c06)"><!-- FOTO_LP: reemplazá PEGAR_URL_FOTO_LP con la URL real --><img src="PEGAR_URL_FOTO_LP" alt="LP" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;"/><span class="staff-initials" style="display:none;">LP</span></div>
+            <img class="staff-avatar" src="PEGAR_URL_FOTO_LP" alt="Leonardo Peretz" onerror="this.style.display='none'"/>
+            <div class="staff-initials">LP</div>
+            <div class="staff-overlay"></div>
             <div class="staff-info">
+              <div class="staff-role-tag">Sistemas e IT</div>
               <div class="staff-name">Leonardo Peretz</div>
-              <div class="staff-role-tag" style="background:#E85D04">Sistemas e IT</div>
               <div class="staff-desc">Gestión tecnológica e infraestructura digital.</div>
             </div>
           </div>
+
         </div>
       </div>
     </div>
