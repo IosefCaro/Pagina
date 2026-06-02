@@ -457,7 +457,6 @@ Nuestro Legado
     <a class="npill" href="propuesta.html">Propuesta</a>
     <a class="npill" href="novedades.html">Novedades</a>
     <a class="npill" href="legado.html">Nuestro Legado</a>
-    <a class="npill" href="calendario.html">Calendario</a>
     <a class="npill" href="contacto.html">Contacto</a>
   </nav>
   <div style="display:flex;align-items:center;gap:.75rem;">
@@ -473,7 +472,6 @@ Nuestro Legado
   <a href="niveles.html" onclick="closeMob()">Niveles</a>
   <a href="propuesta.html" onclick="closeMob()">Propuesta</a>
   <a href="novedades.html" onclick="closeMob()">Novedades</a>
-  <a href="calendario.html" onclick="closeMob()">Calendario</a>
   <a href="contacto.html" onclick="closeMob()">Contacto</a>
   <a href="legado.html" onclick="closeMob()">Nuestro Legado</a>
   <a href="equipo.html" onclick="closeMob()">Sumate</a>
@@ -640,7 +638,6 @@ Nuestro Legado
     <button onclick="goPage('niveles')">Niveles</button>
     <button onclick="goPage('propuesta')">Propuesta</button>
     <button onclick="goPage('novedades')">Novedades</button>
-    <button onclick="goPage('calendario')">Calendario</button>
     <button onclick="goPage('contacto')">Contacto</button>
     <button onclick="goPage('equipo')">Sumate</button>
     <button onclick="goPage('legado')">Nuestro Legado</button>
@@ -682,7 +679,7 @@ Nuestro Legado
 /* ═══════════════════════════════════════
    NAVEGACIÓN
 ═══════════════════════════════════════ */
-function goPage(id){const m={"home": "index.html", "institucional": "institucional.html", "niveles": "niveles.html", "propuesta": "propuesta.html", "novedades": "novedades.html", "calendario": "calendario.html", "contacto": "contacto.html", "legado": "legado.html", "equipo": "equipo.html"};if(m[id])window.location.href=m[id];}
+function goPage(id){const m={"home": "index.html", "institucional": "institucional.html", "niveles": "niveles.html", "propuesta": "propuesta.html", "novedades": "novedades.html", "contacto": "contacto.html", "legado": "legado.html", "equipo": "equipo.html"};if(m[id])window.location.href=m[id];}
 function switchTab(btn){
   const bar=btn.closest('.tab-bar');
   const page=btn.closest('.page');
