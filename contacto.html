@@ -450,20 +450,20 @@ Nuestro Legado
       onerror="this.style.display='none';"
       style="height:44px;width:auto;max-width:180px;object-fit:contain;display:block;"/>
   </a>
-  <nav class="nav-pills">
+   <nav class="nav-pills">
     <a class="npill" href="index.html">Inicio</a>
     <a class="npill" href="institucional.html">Institucional</a>
     <a class="npill" href="niveles.html">Niveles</a>
     <a class="npill" href="propuesta.html">Propuesta</a>
     <a class="npill" href="novedades.html">Novedades</a>
-    <a class="npill" href="legado.html">Nuestro Legado</a>
+    <a class="npill active" href="legado.html">Nuestro Legado</a>
     <a class="npill" href="calendario.html">Calendario</a>
-    <a class="npill active" href="contacto.html">Contacto</a>
-
+    <a class="npill active" href="legado.html">Nuestro Legado</a>
+    <a class="npill" href="contacto.html">Contacto</a>
   </nav>
   <div style="display:flex;align-items:center;gap:.75rem;">
     <a href="contacto.html" class="cta-btn" style="text-decoration:none;">Inscribirse</a>
-    <button class="mob-toggle" onclick="toggleMob()" aria-label="Menú">
+    <button class="mob-toggle" onclick="document.getElementById('mob').classList.toggle('open')" aria-label="Menú">
       <span></span><span></span><span></span>
     </button>
   </div>
