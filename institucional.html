@@ -446,6 +446,7 @@ footer{background:var(--primary);border-top:3px solid var(--accent);padding:2rem
 .foot-copy{width:100%;text-align:center;font-size:.7rem;color:rgba(255,255,255,.25);margin-top:.5rem;}
 
 @media(max-width:760px){.page-hero{height:320px;}.page-hero-content{padding:0 1.5rem 2rem;}.pi{padding:2rem 1rem 4rem;}footer{flex-direction:column;text-align:center;}}
+@media(max-width:700px){.mv-pilares{grid-template-columns:1fr !important;}}
 
 /* ══════════════════════════════════════
    HERO CAROUSEL + VIDEO
@@ -589,52 +590,67 @@ HERO INSTITUCIONAL — cómo editar:
     </div>
     <!-- MISIÓN Y VISIÓN -->
     <div class="panel">
-      <!-- INTRO INSTITUCIONAL -->
-      <div class="quote-block" style="margin-bottom:2.5rem;">
-        Somos una escuela judía observante e integral. Nuestro modelo educativo acompaña a cada egresado en la construcción de su propio camino, con una identidad iehudí sólida y un orgullo genuino de ser judío.
-      </div>
 
-      <!-- MISIÓN -->
-      <p class="s-label" style="margin-bottom:.75rem;">Nuestra Misión</p>
-      <div class="g3" style="margin-bottom:2.5rem;">
-
-        <!-- Pilar 1: Orgullo Iehudí -->
-        <div class="pilar-card">
-          <div class="pilar-num">✡</div>
-          <div class="pilar-title">Orgullo de ser Iehudí</div>
-          <div class="pilar-text">Aspiramos a que cada alumno se sienta profundamente orgulloso de su identidad judía: que desee estudiar Torá, cumpla Mitzvot con entusiasmo y viva según los valores de la fe, la alegría y la ética que nos distinguen como pueblo.</div>
-        </div>
-
-        <!-- Pilar 2: Calidad Educativa -->
-        <div class="pilar-card">
-          <div class="pilar-num">📚</div>
-          <div class="pilar-title">Calidad Educativa</div>
-          <div class="pilar-text">Formamos egresados con pensamiento crítico, creatividad, autonomía y madurez para decidir. Brindamos competencias académicas y emocionales sólidas que les permitan desenvolverse con excelencia en los estudios superiores y en el mundo laboral.</div>
-        </div>
-
-        <!-- Pilar 3: Midot / Cualidades Humanas -->
-        <div class="pilar-card">
-          <div class="pilar-num">💛</div>
-          <div class="pilar-title">Cualidades Humanas — Midot</div>
-          <div class="pilar-text">Educamos en la solidaridad, el buen trato y las buenas Midot como eje de toda conducta. Formamos personas responsables, trabajadoras, honestas y comprometidas con el servicio, que actúan con humildad y vocación en cada tarea que emprenden.</div>
+      <!-- ══ MISIÓN — bloque hero ══ -->
+      <div style="background:linear-gradient(135deg,var(--primary) 0%,#1a1a6e 100%);padding:3rem 3.5rem;margin-bottom:3rem;position:relative;overflow:hidden;">
+        <!-- símbolo decorativo -->
+        <div style="position:absolute;right:-1rem;top:50%;transform:translateY(-50%);font-size:14rem;opacity:.04;color:#fff;font-family:'Playfair Display',serif;line-height:1;pointer-events:none;">✡</div>
+        <div style="position:relative;z-index:1;max-width:780px;">
+          <p style="font-size:.6rem;font-weight:700;letter-spacing:.32em;text-transform:uppercase;color:var(--accent);margin-bottom:1.25rem;display:flex;align-items:center;gap:.6rem;">
+            <span style="display:inline-block;width:20px;height:1px;background:var(--accent);"></span>Nuestra Misión
+          </p>
+          <p style="font-family:'Playfair Display',serif;font-size:clamp(1.35rem,3vw,2rem);color:#fff;line-height:1.55;font-weight:400;margin-bottom:1.5rem;">
+            Somos una escuela judía observante e integral. Formamos iehudim íntegros — con orgullo de su identidad, excelencia académica y buenas Midot — capaces de elegir su propio camino en la vida.
+          </p>
+          <p style="font-size:.9rem;color:rgba(255,255,255,.65);line-height:1.8;max-width:62ch;">
+            Aspiramos a que cada alumno se sienta orgulloso de ser judío, que desee estudiar Torá y cumplir Mitzvot, que desarrolle su libertad y pensamiento crítico, y que actúe con solidaridad, honestidad y vocación de servicio en todo lo que emprenda.
+          </p>
         </div>
       </div>
+      <!-- ══ / MISIÓN ══ -->
 
-      <!-- VISIÓN / FILOSOFÍA -->
-      <p class="s-label" style="margin-bottom:.75rem;">Nuestra Visión — Filosofía</p>
-      <div class="hbox gold-top" style="margin-bottom:1.5rem;">
-        <div class="hbox-title">Cada niño es único</div>
-        <div class="hbox-text">
-          En el Colegio R' Iosef Caro creemos que cada niño es único y lo acompañamos según sus necesidades y circunstancias individuales y colectivas. La Torá no se modifica, pero los educadores debemos adaptarnos permanentemente a las necesidades de los niños. Por eso consideramos que todo aprendizaje debe servir como medio para desempeñarse mejor como ser humano y como judío.
+      <!-- ══ TRES PILARES — debajo, como desarrollo de la misión ══ -->
+      <p class="s-label" style="margin-bottom:1.25rem;">Los tres pilares que guían nuestra misión</p>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--border);margin-bottom:3rem;">
+
+        <div style="padding:2rem 1.75rem;border-right:1px solid var(--border);position:relative;">
+          <div style="font-family:'Playfair Display',serif;font-size:3.5rem;font-weight:700;font-style:italic;color:rgba(19,19,79,.07);line-height:1;margin-bottom:.75rem;display:block;">01</div>
+          <div style="width:32px;height:2px;background:var(--accent);margin-bottom:1rem;"></div>
+          <div style="font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--primary);font-weight:600;margin-bottom:.6rem;">Orgullo de ser Iehudí</div>
+          <div style="font-size:.84rem;color:var(--muted);line-height:1.75;">Que cada alumno viva con orgullo su identidad judía: estudiando Torá con alegría, cumpliendo Mitzvot y guiándose por la fe y la ética de nuestro pueblo.</div>
+        </div>
+
+        <div style="padding:2rem 1.75rem;border-right:1px solid var(--border);">
+          <div style="font-family:'Playfair Display',serif;font-size:3.5rem;font-weight:700;font-style:italic;color:rgba(19,19,79,.07);line-height:1;margin-bottom:.75rem;display:block;">02</div>
+          <div style="width:32px;height:2px;background:var(--accent);margin-bottom:1rem;"></div>
+          <div style="font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--primary);font-weight:600;margin-bottom:.6rem;">Calidad Educativa</div>
+          <div style="font-size:.84rem;color:var(--muted);line-height:1.75;">Egresados con pensamiento crítico, autonomía y competencias sólidas para desenvolverse con excelencia en los estudios superiores y en el mundo laboral.</div>
+        </div>
+
+        <div style="padding:2rem 1.75rem;">
+          <div style="font-family:'Playfair Display',serif;font-size:3.5rem;font-weight:700;font-style:italic;color:rgba(19,19,79,.07);line-height:1;margin-bottom:.75rem;display:block;">03</div>
+          <div style="width:32px;height:2px;background:var(--accent);margin-bottom:1rem;"></div>
+          <div style="font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--primary);font-weight:600;margin-bottom:.6rem;">Cualidades Humanas — Midot</div>
+          <div style="font-size:.84rem;color:var(--muted);line-height:1.75;">Personas responsables, honestas y solidarias. Las buenas Midot como eje de toda conducta, con humildad y vocación de servicio en cada tarea.</div>
+        </div>
+
+      </div>
+      <!-- ══ / TRES PILARES ══ -->
+
+      <!-- ══ VISIÓN / FILOSOFÍA ══ -->
+      <p class="s-label" style="margin-bottom:1rem;">Nuestra Visión — Filosofía</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:2rem;">
+        <div class="hbox gold-top">
+          <div class="hbox-title">Cada niño es único</div>
+          <div class="hbox-text">Creemos que cada niño es único y lo acompañamos según sus necesidades individuales y colectivas. La Torá no se modifica, pero los educadores debemos adaptarnos permanentemente. Todo aprendizaje debe servir para desempeñarse mejor como ser humano y como judío.</div>
+        </div>
+        <div class="hbox" style="border-top:3px solid var(--primary);background:var(--primary-soft);">
+          <div class="hbox-title">Nuestra Visión</div>
+          <div class="hbox-text">Ser una institución de referencia en la comunidad judía argentina, reconocida por su excelencia académica, su profundidad judaica y su calidez humana; formando iehudim íntegros capaces de elegir su propio camino con identidad y orgullo.</div>
         </div>
       </div>
+      <!-- ══ / VISIÓN ══ -->
 
-      <!-- OBJETIVO GENERAL -->
-      <div style="background:var(--primary);padding:2rem 2.5rem;margin-top:.5rem;">
-        <p style="font-family:'Playfair Display',serif;font-size:clamp(1rem,2vw,1.3rem);font-style:italic;color:rgba(255,255,255,.9);line-height:1.75;text-align:center;">
-          "Ser una institución de referencia en la comunidad judía argentina, reconocida por su excelencia académica, su profundidad judaica y su calidez humana; formando iehudim íntegros capaces de elegir su propio camino con identidad y orgullo."
-        </p>
-      </div>
     </div>
     <!-- EQUIPO INSTITUCIONAL -->
     <div class="panel">
