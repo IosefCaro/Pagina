@@ -285,36 +285,89 @@ a{color:var(--primary);text-decoration:none;}
    STAFF CARDS
 ══════════════════════════════════════ */
 .staff-section{width:100%;}
-.staff-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-bottom:.5rem;}
+.staff-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-bottom:.5rem;}
 .staff-grid-4{grid-template-columns:repeat(4,1fr);}
 @media(max-width:900px){.staff-grid{grid-template-columns:repeat(2,1fr);}.staff-grid-4{grid-template-columns:repeat(2,1fr);}}
 @media(max-width:560px){.staff-grid,.staff-grid-4{grid-template-columns:1fr;}}
 
-.staff-card{background:var(--white);border:1px solid var(--border);display:flex;gap:1rem;align-items:flex-start;padding:1.25rem;box-shadow:0 2px 8px rgba(19,19,79,.05);transition:transform .25s,box-shadow .25s;}
-.staff-card:hover{transform:translateY(-3px);box-shadow:0 8px 22px rgba(19,19,79,.1);}
-.staff-card-sm{flex-direction:column;align-items:center;text-align:center;}
+/* card base */
+.staff-card{
+  position:relative;overflow:hidden;
+  border-radius:0;
+  aspect-ratio:3/4;
+  box-shadow:0 4px 18px rgba(19,19,79,.12);
+  transition:transform .35s,box-shadow .35s;
+  cursor:default;
+  background:linear-gradient(160deg,#1a1a6e 0%,var(--primary) 100%);
+}
+.staff-card:hover{transform:translateY(-5px);box-shadow:0 16px 36px rgba(19,19,79,.2);}
 
+/* foto de fondo */
 .staff-avatar{
-  overflow: hidden;
-  border-radius: 50%;
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  object-fit:cover;
+  display:block;
+  transition:transform .5s ease;
+  border-radius:0;
 }
-.staff-avatar img{
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
+.staff-card:hover .staff-avatar{transform:scale(1.06);}
+
+/* iniciales cuando no hay foto */
+.staff-initials{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Playfair Display',serif;font-size:3rem;font-weight:700;
+  color:rgba(255,255,255,.25);letter-spacing:.05em;
 }
-.staff-avatar-sm{width:44px;height:44px;margin-bottom:.25rem;}
-.staff-initials{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;color:var(--white);letter-spacing:.05em;}
 
-.staff-info{flex:1;min-width:0;}
-.staff-card-sm .staff-info{width:100%;}
-.staff-name{font-family:'Playfair Display',serif;font-size:.95rem;color:var(--primary);font-weight:600;margin-bottom:.35rem;line-height:1.2;}
-.staff-role-tag{display:inline-block;font-size:.55rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--white);padding:.2rem .7rem;border-radius:100px;margin-bottom:.5rem;}
-.staff-desc{font-size:.78rem;color:var(--muted);line-height:1.65;margin-bottom:.4rem;}
-.staff-contact{font-size:.72rem;color:var(--muted);opacity:.8;}
+/* overlay degradado inferior */
+.staff-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(10,10,50,.92) 0%,rgba(10,10,50,.55) 45%,rgba(10,10,50,.0) 100%);
+  transition:background .35s;
+}
+.staff-card:hover .staff-overlay{
+  background:linear-gradient(to top,rgba(10,10,50,.97) 0%,rgba(10,10,50,.65) 55%,rgba(10,10,50,.05) 100%);
+}
 
-.staff-divider{height:1px;background:var(--border);margin:2rem 0 1.5rem;}
+/* info sobre overlay */
+.staff-info{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:1.4rem 1.25rem 1.25rem;
+  z-index:2;
+}
+.staff-role-tag{
+  display:inline-block;font-size:.52rem;font-weight:700;
+  letter-spacing:.16em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:.4rem;
+}
+.staff-name{
+  font-family:'Playfair Display',serif;font-size:1rem;
+  color:#fff;font-weight:600;margin-bottom:.4rem;line-height:1.2;
+}
+.staff-desc{
+  font-size:.75rem;color:rgba(255,255,255,.65);line-height:1.6;
+  max-height:0;overflow:hidden;
+  transition:max-height .4s ease,opacity .4s ease;
+  opacity:0;
+}
+.staff-card:hover .staff-desc{max-height:120px;opacity:1;}
+.staff-contact{font-size:.68rem;color:rgba(255,180,0,.75);margin-top:.35rem;opacity:0;transition:opacity .4s .1s;}
+.staff-card:hover .staff-contact{opacity:1;}
+
+/* línea dorada decorativa */
+.staff-info::before{
+  content:'';display:block;width:28px;height:2px;
+  background:var(--accent);margin-bottom:.6rem;
+  transition:width .3s;
+}
+.staff-card:hover .staff-info::before{width:48px;}
+
+/* card compacta */
+.staff-card-sm{aspect-ratio:1/1;}
+.staff-card-sm .staff-name{font-size:.88rem;}
+.staff-divider{height:1px;background:var(--border);margin:2.5rem 0 1.5rem;}
 
 /* Nivel panels (2 niveles de navegación) */
 .nivel-panel{display:none;}
@@ -617,61 +670,72 @@ Nuestro Legado
           <p class="s-label">Dirección del Nivel</p>
           <div class="staff-grid">
             <div class="staff-card">
-              <div class="staff-avatar" style="background:linear-gradient(135deg,#c88b00,#FFB400)"><!-- FOTO_RC: reemplazá PEGAR_URL_FOTO_RC con la URL real --><img src="PEGAR_URL_FOTO_RC" alt="RC" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;"/><span class="staff-initials" style="display:none;">RC</span></div>
+              <img class="staff-avatar" src="PEGAR_URL_FOTO_RC" alt="Rabino Shlomo Cohen" onerror="this.style.display='none'"/>
+              <div class="staff-initials">RC</div>
+              <div class="staff-overlay"></div>
               <div class="staff-info">
+                <div class="staff-role-tag">Director Área Kodesh</div>
                 <div class="staff-name">Rabino Shlomo Cohen</div>
-                <div class="staff-role-tag" style="background:var(--inicial);color:var(--primary)">Director Área Kodesh</div>
-                <div class="staff-desc">Lidera la formación judaica del Nivel Inicial. Responsable del proyecto Kabalat Shabat y los jaguim del jardín.</div>
+                <div class="staff-desc">Lidera la formación judaica del Nivel Inicial. Responsable del Kabalat Shabat y los Jaguim del jardín.</div>
               </div>
             </div>
             <div class="staff-card">
-              <div class="staff-avatar" style="background:linear-gradient(135deg,#c88b00,#FFB400)"><!-- FOTO_LA: reemplazá PEGAR_URL_FOTO_LA con la URL real --><img src="PEGAR_URL_FOTO_LA" alt="LA" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;"/><span class="staff-initials" style="display:none;">LA</span></div>
+              <img class="staff-avatar" src="PEGAR_URL_FOTO_LA" alt="Lic. Laura Altman" onerror="this.style.display='none'"/>
+              <div class="staff-initials">LA</div>
+              <div class="staff-overlay"></div>
               <div class="staff-info">
+                <div class="staff-role-tag">Directora Pedagógica</div>
                 <div class="staff-name">Lic. Laura Altman</div>
-                <div class="staff-role-tag" style="background:var(--inicial);color:var(--primary)">Directora Pedagógica</div>
                 <div class="staff-desc">Responsable de la propuesta curricular del jardín maternal e infantes. Sede Amenábar 2424.</div>
               </div>
             </div>
             <div class="staff-card">
-              <div class="staff-avatar" style="background:linear-gradient(135deg,#c88b00,#FFB400)"><!-- FOTO_MS: reemplazá PEGAR_URL_FOTO_MS con la URL real --><img src="PEGAR_URL_FOTO_MS" alt="MS" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;"/><span class="staff-initials" style="display:none;">MS</span></div>
+              <img class="staff-avatar" src="PEGAR_URL_FOTO_MS" alt="Prof. Miriam Stein" onerror="this.style.display='none'"/>
+              <div class="staff-initials">MS</div>
+              <div class="staff-overlay"></div>
               <div class="staff-info">
+                <div class="staff-role-tag">Coordinadora Sala de 5</div>
                 <div class="staff-name">Prof. Miriam Stein</div>
-                <div class="staff-role-tag" style="background:var(--inicial);color:var(--primary)">Coordinadora Sala de 5</div>
                 <div class="staff-desc">Coordina las salas de 5 años y articula la transición al Nivel Primario.</div>
               </div>
             </div>
           </div>
-
           <div class="staff-divider"></div>
           <p class="s-label">Psicología y Orientación</p>
           <div class="staff-grid">
             <div class="staff-card">
-              <div class="staff-avatar" style="background:linear-gradient(135deg,#0077B6,#0096c7)"><!-- FOTO_DF: reemplazá PEGAR_URL_FOTO_DF con la URL real --><img src="PEGAR_URL_FOTO_DF" alt="DF" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;"/><span class="staff-initials" style="display:none;">DF</span></div>
+              <img class="staff-avatar" src="PEGAR_URL_FOTO_DF" alt="Psic. Diana Frenkel" onerror="this.style.display='none'"/>
+              <div class="staff-initials">DF</div>
+              <div class="staff-overlay"></div>
               <div class="staff-info">
+                <div class="staff-role-tag">Psicóloga del Nivel</div>
                 <div class="staff-name">Psic. Diana Frenkel</div>
-                <div class="staff-role-tag" style="background:#0077B6">Psicóloga del Nivel</div>
-                <div class="staff-desc">Acompañamiento a niños y familias en la etapa inicial. Consultas por turno.</div>
+                <div class="staff-desc">Acompañamiento a niños y familias en la etapa inicial.</div>
               </div>
             </div>
             <div class="staff-card">
-              <div class="staff-avatar" style="background:linear-gradient(135deg,#0077B6,#0096c7)"><!-- FOTO_GP: reemplazá PEGAR_URL_FOTO_GP con la URL real --><img src="PEGAR_URL_FOTO_GP" alt="GP" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;"/><span class="staff-initials" style="display:none;">GP</span></div>
+              <img class="staff-avatar" src="PEGAR_URL_FOTO_GP" alt="Psicopedag. Gaby Perle" onerror="this.style.display='none'"/>
+              <div class="staff-initials">GP</div>
+              <div class="staff-overlay"></div>
               <div class="staff-info">
+                <div class="staff-role-tag">Psicopedagoga</div>
                 <div class="staff-name">Psicopedag. Gaby Perle</div>
-                <div class="staff-role-tag" style="background:#0077B6">Psicopedagoga</div>
-                <div class="staff-desc">Detección temprana de dificultades de aprendizaje. Trabajo en equipo con las maestras de sala.</div>
+                <div class="staff-desc">Detección temprana de dificultades de aprendizaje junto a las maestras de sala.</div>
               </div>
             </div>
             <div class="staff-card">
-              <div class="staff-avatar" style="background:linear-gradient(135deg,#0077B6,#0096c7)"><!-- FOTO_RV: reemplazá PEGAR_URL_FOTO_RV con la URL real --><img src="PEGAR_URL_FOTO_RV" alt="RV" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;"/><span class="staff-initials" style="display:none;">RV</span></div>
+              <img class="staff-avatar" src="PEGAR_URL_FOTO_RV" alt="Lic. Rosa Vainer" onerror="this.style.display='none'"/>
+              <div class="staff-initials">RV</div>
+              <div class="staff-overlay"></div>
               <div class="staff-info">
+                <div class="staff-role-tag">Fonoaudióloga</div>
                 <div class="staff-name">Lic. Rosa Vainer</div>
-                <div class="staff-role-tag" style="background:#0077B6">Fonoaudióloga</div>
-                <div class="staff-desc">Estimulación del lenguaje y comunicación en edades tempranas. Screening anual.</div>
+                <div class="staff-desc">Estimulación del lenguaje en edades tempranas. Screening anual.</div>
               </div>
             </div>
           </div>
         </div>
-</div>
+      </div>
 
       <!-- OFICIAL -->
       <div class="nivel-subpanel">
@@ -761,90 +825,72 @@ Nuestro Legado
           <p class="s-label">Dirección del Nivel</p>
           <div class="staff-grid">
             <div class="staff-card">
-              <div class="staff-avatar" style="background:linear-gradient(135deg,#6a9000,#9DD014)"><!-- FOTO_JA: reemplazá PEGAR_URL_FOTO_JA con la URL real --><img src="PEGAR_URL_FOTO_JA" alt="JA" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;"/><span class="staff-initials" style="display:none;">JA</span></div>
+              <img class="staff-avatar" src="PEGAR_URL_FOTO_PA" alt="Rabino Pablo Americus" onerror="this.style.display='none'"/>
+              <div class="staff-initials">PA</div>
+              <div class="staff-overlay"></div>
               <div class="staff-info">
-                <div class="staff-name">Prof. Javier Abraham</div>
-                <div class="staff-role-tag" style="background:#6a9000">Director Área Oficial</div>
-                <div class="staff-desc">Articula la propuesta curricular oficial con la identidad judía del Nivel Primario.</div>
+                <div class="staff-role-tag">Director Área Kodesh</div>
+                <div class="staff-name">Rabino Pablo Americus</div>
+                <div class="staff-desc">Lidera la propuesta judaica del Nivel Primario. Responsable del Kabalat Shabat y los hitos del nivel.</div>
               </div>
             </div>
             <div class="staff-card">
-              <div class="staff-avatar" style="background:linear-gradient(135deg,#6a9000,#9DD014)"><!-- FOTO_HG: reemplazá PEGAR_URL_FOTO_HG con la URL real --><img src="PEGAR_URL_FOTO_HG" alt="HG" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;"/><span class="staff-initials" style="display:none;">HG</span></div>
+              <img class="staff-avatar" src="PEGAR_URL_FOTO_NB" alt="Lic. Nora Blum" onerror="this.style.display='none'"/>
+              <div class="staff-initials">NB</div>
+              <div class="staff-overlay"></div>
               <div class="staff-info">
-                <div class="staff-name">Rab. Haim Goldwasser</div>
-                <div class="staff-role-tag" style="background:#6a9000">Director Área Kodesh</div>
-                <div class="staff-desc">Lidera el programa judaico del Nivel Primario. Responsable de Mesibat Sidur, Jumash y Jidón Hatanaj.</div>
+                <div class="staff-role-tag">Directora Pedagógica</div>
+                <div class="staff-name">Lic. Nora Blum</div>
+                <div class="staff-desc">Coordina el equipo docente del nivel primario en ambas secciones. Sede Moldes 2440.</div>
               </div>
             </div>
             <div class="staff-card">
-              <div class="staff-avatar" style="background:linear-gradient(135deg,#6a9000,#9DD014)"><!-- FOTO_CF: reemplazá PEGAR_URL_FOTO_CF con la URL real --><img src="PEGAR_URL_FOTO_CF" alt="CF" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;"/><span class="staff-initials" style="display:none;">CF</span></div>
+              <img class="staff-avatar" src="PEGAR_URL_FOTO_EK" alt="Prof. Elena Katz" onerror="this.style.display='none'"/>
+              <div class="staff-initials">EK</div>
+              <div class="staff-overlay"></div>
               <div class="staff-info">
-                <div class="staff-name">Prof. Carla Feuerstein</div>
-                <div class="staff-role-tag" style="background:#6a9000">Vice-directora</div>
-                <div class="staff-desc">Coordinación cotidiana de los grados 1° a 7°. Vínculo con familias y docentes.</div>
+                <div class="staff-role-tag">Coordinadora Área Inglés</div>
+                <div class="staff-name">Prof. Elena Katz</div>
+                <div class="staff-desc">Responsable del programa de inglés y la articulación con Cambridge y Trinity College.</div>
               </div>
             </div>
           </div>
-
-          <div class="staff-divider"></div>
-          <p class="s-label">Coordinación por Ciclo</p>
-          <div class="staff-grid">
-            <div class="staff-card">
-              <div class="staff-avatar" style="background:linear-gradient(135deg,#6a9000,#9DD014)"><!-- FOTO_BW: reemplazá PEGAR_URL_FOTO_BW con la URL real --><img src="PEGAR_URL_FOTO_BW" alt="BW" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;"/><span class="staff-initials" style="display:none;">BW</span></div>
-              <div class="staff-info">
-                <div class="staff-name">Prof. Beatriz Weiss</div>
-                <div class="staff-role-tag" style="background:#6a9000">Coordinadora 1° Ciclo (1° a 3°)</div>
-                <div class="staff-desc">Acompaña a los docentes del primer ciclo en planificación y evaluación.</div>
-              </div>
-            </div>
-            <div class="staff-card">
-              <div class="staff-avatar" style="background:linear-gradient(135deg,#6a9000,#9DD014)"><!-- FOTO_IO: reemplazá PEGAR_URL_FOTO_IO con la URL real --><img src="PEGAR_URL_FOTO_IO" alt="IO" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;"/><span class="staff-initials" style="display:none;">IO</span></div>
-              <div class="staff-info">
-                <div class="staff-name">Prof. Ignacio Osorio</div>
-                <div class="staff-role-tag" style="background:#6a9000">Coordinador 2° Ciclo (4° a 7°)</div>
-                <div class="staff-desc">Lidera el segundo ciclo con foco en la preparación para el nivel secundario.</div>
-              </div>
-            </div>
-            <div class="staff-card">
-              <div class="staff-avatar" style="background:linear-gradient(135deg,#6a9000,#9DD014)"><!-- FOTO_VK: reemplazá PEGAR_URL_FOTO_VK con la URL real --><img src="PEGAR_URL_FOTO_VK" alt="VK" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;"/><span class="staff-initials" style="display:none;">VK</span></div>
-              <div class="staff-info">
-                <div class="staff-name">Prof. Verónica Katz</div>
-                <div class="staff-role-tag" style="background:#6a9000">Coordinadora de Inglés</div>
-                <div class="staff-desc">Programa bilingüe del Nivel Primario. Articulación Cambridge / Trinity.</div>
-              </div>
-            </div>
-          </div>
-
           <div class="staff-divider"></div>
           <p class="s-label">Psicología y Orientación</p>
           <div class="staff-grid">
             <div class="staff-card">
-              <div class="staff-avatar" style="background:linear-gradient(135deg,#0077B6,#0096c7)"><!-- FOTO_AM: reemplazá PEGAR_URL_FOTO_AM con la URL real --><img src="PEGAR_URL_FOTO_AM" alt="AM" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;"/><span class="staff-initials" style="display:none;">AM</span></div>
+              <img class="staff-avatar" src="PEGAR_URL_FOTO_VL" alt="Psic. Viviana Levy" onerror="this.style.display='none'"/>
+              <div class="staff-initials">VL</div>
+              <div class="staff-overlay"></div>
               <div class="staff-info">
-                <div class="staff-name">Psic. Alejandro Molina</div>
-                <div class="staff-role-tag" style="background:#0077B6">Psicólogo del Nivel</div>
-                <div class="staff-desc">Acompañamiento a alumnos de 1° a 7° grado. Intervención en situaciones de convivencia.</div>
+                <div class="staff-role-tag">Psicóloga del Nivel</div>
+                <div class="staff-name">Psic. Viviana Levy</div>
+                <div class="staff-desc">Acompañamiento a alumnos y familias. Coordina el equipo de orientación en Primaria.</div>
               </div>
             </div>
             <div class="staff-card">
-              <div class="staff-avatar" style="background:linear-gradient(135deg,#0077B6,#0096c7)"><!-- FOTO_SH: reemplazá PEGAR_URL_FOTO_SH con la URL real --><img src="PEGAR_URL_FOTO_SH" alt="SH" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;"/><span class="staff-initials" style="display:none;">SH</span></div>
+              <img class="staff-avatar" src="PEGAR_URL_FOTO_SR" alt="Psicopedag. Sandra Raab" onerror="this.style.display='none'"/>
+              <div class="staff-initials">SR</div>
+              <div class="staff-overlay"></div>
               <div class="staff-info">
-                <div class="staff-name">Psicopedag. Sara Helman</div>
-                <div class="staff-role-tag" style="background:#0077B6">Psicopedagoga</div>
-                <div class="staff-desc">Evaluación y seguimiento de trayectorias escolares. Trabajo articulado con docentes.</div>
+                <div class="staff-role-tag">Psicopedagoga</div>
+                <div class="staff-name">Psicopedag. Sandra Raab</div>
+                <div class="staff-desc">Evaluación y acompañamiento psicopedagógico junto a los docentes del nivel.</div>
               </div>
             </div>
             <div class="staff-card">
-              <div class="staff-avatar" style="background:linear-gradient(135deg,#0077B6,#0096c7)"><!-- FOTO_MN: reemplazá PEGAR_URL_FOTO_MN con la URL real --><img src="PEGAR_URL_FOTO_MN" alt="MN" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;"/><span class="staff-initials" style="display:none;">MN</span></div>
+              <img class="staff-avatar" src="PEGAR_URL_FOTO_MF" alt="Prof. Mario Faifer" onerror="this.style.display='none'"/>
+              <div class="staff-initials">MF</div>
+              <div class="staff-overlay"></div>
               <div class="staff-info">
-                <div class="staff-name">Lic. Marta Nudel</div>
-                <div class="staff-role-tag" style="background:#0077B6">Maestra Integradora</div>
-                <div class="staff-desc">Coordinación de estrategias de inclusión para alumnos con necesidades específicas.</div>
+                <div class="staff-role-tag">Orientador Educacional</div>
+                <div class="staff-name">Prof. Mario Faifer</div>
+                <div class="staff-desc">Acompaña la trayectoria escolar de los alumnos del segundo ciclo.</div>
               </div>
             </div>
           </div>
         </div>
-</div>
+      </div>
 
       <!-- OFICIAL -->
       <div class="nivel-subpanel">
@@ -920,73 +966,75 @@ Nuestro Legado
       <!-- EQUIPO -->
       <div class="nivel-subpanel active">
         <div class="staff-section">
-          <p class="s-label">Rectorado y Dirección</p>
+          <p class="s-label">Dirección del Nivel</p>
           <div class="staff-grid">
             <div class="staff-card">
-              <div class="staff-avatar" style="background:linear-gradient(135deg,#3320a0,#5539F2)"><!-- FOTO_RC: reemplazá PEGAR_URL_FOTO_RC con la URL real --><img src="PEGAR_URL_FOTO_RC" alt="RC" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;"/><span class="staff-initials" style="display:none;">RC</span></div>
+              <img class="staff-avatar" src="PEGAR_URL_FOTO_AE" alt="Rabino Ari Engel" onerror="this.style.display='none'"/>
+              <div class="staff-initials">AE</div>
+              <div class="staff-overlay"></div>
               <div class="staff-info">
-                <div class="staff-name">Prof. Rodolfo Compagno</div>
-                <div class="staff-role-tag" style="background:var(--sec)">Rector Área Oficial</div>
-                <div class="staff-desc">Rector del área oficial del Nivel Secundario de Varones. Visión pedagógica integral.</div>
+                <div class="staff-role-tag">Director Área Kodesh</div>
+                <div class="staff-name">Rabino Ari Engel</div>
+                <div class="staff-desc">Guía el estudio de Guemará y las fuentes judaicas. Responsable de la Yeshivá integrada al curriculum.</div>
               </div>
             </div>
             <div class="staff-card">
-              <div class="staff-avatar" style="background:linear-gradient(135deg,#3320a0,#5539F2)"><!-- FOTO_AE: reemplazá PEGAR_URL_FOTO_AE con la URL real --><img src="PEGAR_URL_FOTO_AE" alt="AE" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;"/><span class="staff-initials" style="display:none;">AE</span></div>
+              <img class="staff-avatar" src="PEGAR_URL_FOTO_DG" alt="Lic. Daniel Goldschmidt" onerror="this.style.display='none'"/>
+              <div class="staff-initials">DG</div>
+              <div class="staff-overlay"></div>
               <div class="staff-info">
-                <div class="staff-name">Rab. Ari Engel</div>
-                <div class="staff-role-tag" style="background:var(--sec)">Director Área Kodesh</div>
-                <div class="staff-desc">Lidera la formación judaica del Secundario de Varones. Yeshivá integrada y estudio de Guemará.</div>
+                <div class="staff-role-tag">Director Pedagógico</div>
+                <div class="staff-name">Lic. Daniel Goldschmidt</div>
+                <div class="staff-desc">Coordina el equipo docente del Secundario Varones. Articulación con estudios superiores.</div>
               </div>
             </div>
             <div class="staff-card">
-              <div class="staff-avatar" style="background:linear-gradient(135deg,#3320a0,#5539F2)"><!-- FOTO_FM: reemplazá PEGAR_URL_FOTO_FM con la URL real --><img src="PEGAR_URL_FOTO_FM" alt="FM" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;"/><span class="staff-initials" style="display:none;">FM</span></div>
+              <img class="staff-avatar" src="PEGAR_URL_FOTO_RL" alt="Prof. Ruth Leibman" onerror="this.style.display='none'"/>
+              <div class="staff-initials">RL</div>
+              <div class="staff-overlay"></div>
               <div class="staff-info">
-                <div class="staff-name">Prof. Federico Mauricio</div>
-                <div class="staff-role-tag" style="background:var(--sec)">Vicerrector</div>
-                <div class="staff-desc">Coordinación de preceptores y convivencia escolar. Sede Echeverría 1166.</div>
+                <div class="staff-role-tag">Coordinadora Área Inglés</div>
+                <div class="staff-name">Prof. Ruth Leibman</div>
+                <div class="staff-desc">Programa avanzado de inglés con articulación Cambridge y Writing Contest.</div>
               </div>
             </div>
           </div>
-
-          <div class="staff-divider"></div>
-          <p class="s-label">Coordinación de Año</p>
-          <div class="staff-grid staff-grid-4">
-            <div class="staff-card staff-card-sm"><div class="staff-avatar staff-avatar-sm"><img src="https://i.ibb.co/fdgL2tK4/ddd.jpg" alt="Tamara Geller"></div><div class="staff-info"><div class="staff-name">Tamara Geller</div><div class="staff-role-tag" style="background:var(--sec)">Coord. 1° año</div><div class="staff-desc">Acompañamiento en la transición al secundario.</div></div></div>
-            <div class="staff-card staff-card-sm"><div class="staff-avatar staff-avatar-sm" style="background:linear-gradient(135deg,#3320a0,#5539F2)"><!-- FOTO_OR: reemplazá PEGAR_URL_FOTO_OR con la URL real --><img src="PEGAR_URL_FOTO_OR" alt="OR" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;"/><span class="staff-initials" style="display:none;">OR</span></div><div class="staff-info"><div class="staff-name">Omar Rolnik</div><div class="staff-role-tag" style="background:var(--sec)">Coord. 2° y 3° año</div><div class="staff-desc">Ciclo básico del secundario.</div></div></div>
-            <div class="staff-card staff-card-sm"><div class="staff-avatar staff-avatar-sm" style="background:linear-gradient(135deg,#3320a0,#5539F2)"><!-- FOTO_LS: reemplazá PEGAR_URL_FOTO_LS con la URL real --><img src="PEGAR_URL_FOTO_LS" alt="LS" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;"/><span class="staff-initials" style="display:none;">LS</span></div><div class="staff-info"><div class="staff-name">Lorena Sender</div><div class="staff-role-tag" style="background:var(--sec)">Coord. 4° y 5° año</div><div class="staff-desc">Ciclo orientado y orientación vocacional.</div></div></div>
-            <div class="staff-card staff-card-sm"><div class="staff-avatar staff-avatar-sm" style="background:linear-gradient(135deg,#3320a0,#5539F2)"><!-- FOTO_MF: reemplazá PEGAR_URL_FOTO_MF con la URL real --><img src="PEGAR_URL_FOTO_MF" alt="MF" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;"/><span class="staff-initials" style="display:none;">MF</span></div><div class="staff-info"><div class="staff-name">Moshe Faier</div><div class="staff-role-tag" style="background:var(--sec)">Coord. Yeshivá</div><div class="staff-desc">Coordinador del programa de Yeshivá integrada.</div></div></div>
-          </div>
-
           <div class="staff-divider"></div>
           <p class="s-label">Psicología y Orientación</p>
           <div class="staff-grid">
             <div class="staff-card">
-              <div class="staff-avatar" style="background:linear-gradient(135deg,#0077B6,#0096c7)"><!-- FOTO_PB: reemplazá PEGAR_URL_FOTO_PB con la URL real --><img src="PEGAR_URL_FOTO_PB" alt="PB" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;"/><span class="staff-initials" style="display:none;">PB</span></div>
+              <img class="staff-avatar" src="PEGAR_URL_FOTO_HB" alt="Psic. Hugo Baruj" onerror="this.style.display='none'"/>
+              <div class="staff-initials">HB</div>
+              <div class="staff-overlay"></div>
               <div class="staff-info">
-                <div class="staff-name">Psic. Pablo Benharroch</div>
-                <div class="staff-role-tag" style="background:#0077B6">Psicólogo del Nivel</div>
-                <div class="staff-desc">Acompañamiento individual y grupal. Intervención en situaciones de convivencia y conducta.</div>
+                <div class="staff-role-tag">Psicólogo del Nivel</div>
+                <div class="staff-name">Psic. Hugo Baruj</div>
+                <div class="staff-desc">Acompañamiento a los alumnos del secundario varones y sus familias.</div>
               </div>
             </div>
             <div class="staff-card">
-              <div class="staff-avatar" style="background:linear-gradient(135deg,#0077B6,#0096c7)"><!-- FOTO_ET: reemplazá PEGAR_URL_FOTO_ET con la URL real --><img src="PEGAR_URL_FOTO_ET" alt="ET" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;"/><span class="staff-initials" style="display:none;">ET</span></div>
+              <img class="staff-avatar" src="PEGAR_URL_FOTO_TN" alt="Lic. Tamara Nudel" onerror="this.style.display='none'"/>
+              <div class="staff-initials">TN</div>
+              <div class="staff-overlay"></div>
               <div class="staff-info">
-                <div class="staff-name">Lic. Ezequiel Tauber</div>
-                <div class="staff-role-tag" style="background:#0077B6">Orientador Vocacional</div>
-                <div class="staff-desc">Acompaña a los alumnos de 4° y 5° año en su orientación vocacional y universitaria.</div>
+                <div class="staff-role-tag">Orientadora Vocacional</div>
+                <div class="staff-name">Lic. Tamara Nudel</div>
+                <div class="staff-desc">Acompaña a los alumnos del ciclo orientado en la transición hacia los estudios superiores.</div>
               </div>
             </div>
             <div class="staff-card">
-              <div class="staff-avatar" style="background:linear-gradient(135deg,#0077B6,#0096c7)"><!-- FOTO_NW: reemplazá PEGAR_URL_FOTO_NW con la URL real --><img src="PEGAR_URL_FOTO_NW" alt="NW" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;"/><span class="staff-initials" style="display:none;">NW</span></div>
+              <img class="staff-avatar" src="PEGAR_URL_FOTO_YF" alt="Psicopedag. Yanina Fano" onerror="this.style.display='none'"/>
+              <div class="staff-initials">YF</div>
+              <div class="staff-overlay"></div>
               <div class="staff-info">
-                <div class="staff-name">Psicopedag. Natalia Wolf</div>
-                <div class="staff-role-tag" style="background:#0077B6">Psicopedagoga</div>
-                <div class="staff-desc">Seguimiento de trayectorias y estrategias de aprendizaje para alumnos con necesidades específicas.</div>
+                <div class="staff-role-tag">Psicopedagoga</div>
+                <div class="staff-name">Psicopedag. Yanina Fano</div>
+                <div class="staff-desc">Acompañamiento de trayectorias escolares y coordinación con el equipo docente.</div>
               </div>
             </div>
           </div>
         </div>
-</div>
+      </div>
 
       <!-- OFICIAL -->
       <div class="nivel-subpanel">
@@ -1066,90 +1114,72 @@ Nuestro Legado
           <p class="s-label">Dirección del Nivel</p>
           <div class="staff-grid">
             <div class="staff-card">
-              <div class="staff-avatar" style="background:linear-gradient(135deg,#3320a0,#5539F2)"><!-- FOTO_YS: reemplazá PEGAR_URL_FOTO_YS con la URL real --><img src="PEGAR_URL_FOTO_YS" alt="YS" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;"/><span class="staff-initials" style="display:none;">YS</span></div>
+              <img class="staff-avatar" src="PEGAR_URL_FOTO_RM" alt="Rabina Ruth Mizrahi" onerror="this.style.display='none'"/>
+              <div class="staff-initials">RM</div>
+              <div class="staff-overlay"></div>
               <div class="staff-info">
-                <div class="staff-name">Prof. Yael Schargorodsky</div>
-                <div class="staff-role-tag" style="background:var(--sec)">Directora Área Oficial</div>
-                <div class="staff-desc">Rectora del área oficial del Nivel Secundario de Mujeres. Liderazgo pedagógico y convivencia.</div>
+                <div class="staff-role-tag">Directora Área Kodesh</div>
+                <div class="staff-name">Rabina Ruth Mizrahi</div>
+                <div class="staff-desc">Lidera los proyectos Lilaj, Jizuk y Jodesh Elul. Referente espiritual y pedagógica del nivel.</div>
               </div>
             </div>
             <div class="staff-card">
-              <div class="staff-avatar" style="background:linear-gradient(135deg,#3320a0,#5539F2)"><!-- FOTO_DF: reemplazá PEGAR_URL_FOTO_DF con la URL real --><img src="PEGAR_URL_FOTO_DF" alt="DF" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;"/><span class="staff-initials" style="display:none;">DF</span></div>
+              <img class="staff-avatar" src="PEGAR_URL_FOTO_CW" alt="Lic. Claudia Weill" onerror="this.style.display='none'"/>
+              <div class="staff-initials">CW</div>
+              <div class="staff-overlay"></div>
               <div class="staff-info">
-                <div class="staff-name">Rabino Dov Fischler</div>
-                <div class="staff-role-tag" style="background:var(--sec)">Director Área Kodesh</div>
-                <div class="staff-desc">Lidera el área judaica del Secundario Mujeres. Proyectos: Lilaj, Jizuk, Jodesh Elul.</div>
+                <div class="staff-role-tag">Directora Pedagógica</div>
+                <div class="staff-name">Lic. Claudia Weill</div>
+                <div class="staff-desc">Coordina el equipo docente del Secundario Mujeres. Sede Moldes 2440.</div>
               </div>
             </div>
             <div class="staff-card">
-              <div class="staff-avatar" style="background:linear-gradient(135deg,#3320a0,#5539F2)"><!-- FOTO_RB: reemplazá PEGAR_URL_FOTO_RB con la URL real --><img src="PEGAR_URL_FOTO_RB" alt="RB" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;"/><span class="staff-initials" style="display:none;">RB</span></div>
+              <img class="staff-avatar" src="PEGAR_URL_FOTO_AB" alt="Prof. Andrea Birenbaum" onerror="this.style.display='none'"/>
+              <div class="staff-initials">AB</div>
+              <div class="staff-overlay"></div>
               <div class="staff-info">
-                <div class="staff-name">Prof. Romina Bensimon</div>
-                <div class="staff-role-tag" style="background:var(--sec)">Vice-directora</div>
-                <div class="staff-desc">Coordinación académica y seguimiento docente. Sede Moldes 2440.</div>
+                <div class="staff-role-tag">Coordinadora Área Inglés</div>
+                <div class="staff-name">Prof. Andrea Birenbaum</div>
+                <div class="staff-desc">Programa avanzado de inglés con articulación Cambridge y Trinity College.</div>
               </div>
             </div>
           </div>
-
-          <div class="staff-divider"></div>
-          <p class="s-label">Coordinación de Proyectos</p>
-          <div class="staff-grid">
-            <div class="staff-card">
-              <div class="staff-avatar" style="background:linear-gradient(135deg,#3320a0,#5539F2)"><!-- FOTO_TL: reemplazá PEGAR_URL_FOTO_TL con la URL real --><img src="PEGAR_URL_FOTO_TL" alt="TL" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;"/><span class="staff-initials" style="display:none;">TL</span></div>
-              <div class="staff-info">
-                <div class="staff-name">Prof. Tali Levin</div>
-                <div class="staff-role-tag" style="background:var(--sec)">Coordinadora Future Leaders</div>
-                <div class="staff-desc">Lidera el programa de liderazgo y oratoria para alumnas del secundario.</div>
-              </div>
-            </div>
-            <div class="staff-card">
-              <div class="staff-avatar" style="background:linear-gradient(135deg,#3320a0,#5539F2)"><!-- FOTO_HK: reemplazá PEGAR_URL_FOTO_HK con la URL real --><img src="PEGAR_URL_FOTO_HK" alt="HK" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;"/><span class="staff-initials" style="display:none;">HK</span></div>
-              <div class="staff-info">
-                <div class="staff-name">Morah Hadas Kremer</div>
-                <div class="staff-role-tag" style="background:var(--sec)">Coordinadora Lilaj y Jizuk</div>
-                <div class="staff-desc">Proyectos de identidad y crecimiento personal judaico para las alumnas.</div>
-              </div>
-            </div>
-            <div class="staff-card">
-              <div class="staff-avatar" style="background:linear-gradient(135deg,#3320a0,#5539F2)"><!-- FOTO_GS: reemplazá PEGAR_URL_FOTO_GS con la URL real --><img src="PEGAR_URL_FOTO_GS" alt="GS" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;"/><span class="staff-initials" style="display:none;">GS</span></div>
-              <div class="staff-info">
-                <div class="staff-name">Prof. Graciela Saban</div>
-                <div class="staff-role-tag" style="background:var(--sec)">Coord. Orientación Vocacional</div>
-                <div class="staff-desc">Talleres vocacionales para alumnas de 4° y 5° año. Puente hacia la universidad.</div>
-              </div>
-            </div>
-          </div>
-
           <div class="staff-divider"></div>
           <p class="s-label">Psicología y Orientación</p>
           <div class="staff-grid">
             <div class="staff-card">
-              <div class="staff-avatar" style="background:linear-gradient(135deg,#0077B6,#0096c7)"><!-- FOTO_CO: reemplazá PEGAR_URL_FOTO_CO con la URL real --><img src="PEGAR_URL_FOTO_CO" alt="CO" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;"/><span class="staff-initials" style="display:none;">CO</span></div>
+              <img class="staff-avatar" src="PEGAR_URL_FOTO_LG" alt="Psic. Laura Grinberg" onerror="this.style.display='none'"/>
+              <div class="staff-initials">LG</div>
+              <div class="staff-overlay"></div>
               <div class="staff-info">
-                <div class="staff-name">Psic. Claudia Ostrowicz</div>
-                <div class="staff-role-tag" style="background:#0077B6">Psicóloga del Nivel</div>
-                <div class="staff-desc">Acompañamiento a alumnas en etapas clave del adolescencia. Escucha y contención.</div>
+                <div class="staff-role-tag">Psicóloga del Nivel</div>
+                <div class="staff-name">Psic. Laura Grinberg</div>
+                <div class="staff-desc">Acompañamiento a las alumnas y sus familias. Referente del bienestar emocional del nivel.</div>
               </div>
             </div>
             <div class="staff-card">
-              <div class="staff-avatar" style="background:linear-gradient(135deg,#0077B6,#0096c7)"><!-- FOTO_FK: reemplazá PEGAR_URL_FOTO_FK con la URL real --><img src="PEGAR_URL_FOTO_FK" alt="FK" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;"/><span class="staff-initials" style="display:none;">FK</span></div>
+              <img class="staff-avatar" src="PEGAR_URL_FOTO_EF" alt="Psicopedag. Eva Freund" onerror="this.style.display='none'"/>
+              <div class="staff-initials">EF</div>
+              <div class="staff-overlay"></div>
               <div class="staff-info">
-                <div class="staff-name">Psicopedag. Fanny Krauss</div>
-                <div class="staff-role-tag" style="background:#0077B6">Psicopedagoga</div>
-                <div class="staff-desc">Evaluación, estrategias y acompañamiento de trayectorias educativas singulares.</div>
+                <div class="staff-role-tag">Psicopedagoga</div>
+                <div class="staff-name">Psicopedag. Eva Freund</div>
+                <div class="staff-desc">Evaluación y acompañamiento de trayectorias escolares junto al equipo docente.</div>
               </div>
             </div>
             <div class="staff-card">
-              <div class="staff-avatar" style="background:linear-gradient(135deg,#0077B6,#0096c7)"><!-- FOTO_BI: reemplazá PEGAR_URL_FOTO_BI con la URL real --><img src="PEGAR_URL_FOTO_BI" alt="BI" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;"/><span class="staff-initials" style="display:none;">BI</span></div>
+              <img class="staff-avatar" src="PEGAR_URL_FOTO_MS2" alt="Lic. Marcela Sztern" onerror="this.style.display='none'"/>
+              <div class="staff-initials">MS</div>
+              <div class="staff-overlay"></div>
               <div class="staff-info">
-                <div class="staff-name">Lic. Brenda Isman</div>
-                <div class="staff-role-tag" style="background:#0077B6">Trabajadora Social</div>
-                <div class="staff-desc">Articulación familia-escuela-comunidad. Acompañamiento en situaciones de vulnerabilidad.</div>
+                <div class="staff-role-tag">Orientadora Vocacional</div>
+                <div class="staff-name">Lic. Marcela Sztern</div>
+                <div class="staff-desc">Acompaña a las alumnas del ciclo orientado hacia los estudios superiores.</div>
               </div>
             </div>
           </div>
         </div>
-</div>
+      </div>
 
       <!-- OFICIAL -->
       <div class="nivel-subpanel">
