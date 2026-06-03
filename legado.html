@@ -18,7 +18,7 @@ a{color:var(--primary);text-decoration:none;}
 /* ── TOPBAR ── */
 .topbar{position:fixed;top:0;left:0;right:0;z-index:200;height:68px;background:rgba(19,19,79,0.97);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,180,0,0.2);display:flex;align-items:center;justify-content:space-between;padding:0 2rem;}
 .nav-pills{display:flex;gap:.1rem;align-items:center;}
-.npill{font-family:'Inter',sans-serif;font-size:.65rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,0.55);padding:.45rem .85rem;border-radius:100px;transition:all .2s;}
+.npill{display:inline-flex;align-items:center;font-family:'Inter',sans-serif;font-size:.65rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,0.55);padding:.45rem .85rem;border-radius:100px;transition:all .2s;text-decoration:none;line-height:1;}
 .npill:hover,.npill.active{color:var(--accent);background:rgba(255,180,0,0.1);}
 .cta-btn{background:var(--accent);color:var(--primary);font-family:'Inter',sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.5rem 1.25rem;border-radius:100px;transition:all .3s;}
 .cta-btn:hover{background:#ffc933;box-shadow:0 0 20px rgba(255,180,0,.35);}
@@ -189,7 +189,6 @@ footer{background:var(--primary);border-top:3px solid var(--accent);padding:2rem
   <a href="novedades.html" onclick="this.closest('.mob-menu').classList.remove('open')">Novedades</a>
   <a href="contacto.html" onclick="this.closest('.mob-menu').classList.remove('open')">Contacto</a>
   <a href="equipo.html" onclick="this.closest('.mob-menu').classList.remove('open')">Sumate</a>
-  <a href="app/index.html" onclick="this.closest('.mob-menu').classList.remove('open')" style="color:rgba(255,180,0,0.85)!important;">🔑 Ingresar a la app</a>
   <a href="contacto.html" class="cta-btn" style="margin:1rem auto;text-decoration:none;">Inscribirse</a>
 </div>
 
