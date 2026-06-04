@@ -517,6 +517,20 @@ footer{background:var(--primary);border-top:3px solid var(--accent);padding:2rem
    HERO CAROUSEL + VIDEO
 ══════════════════════════════════════ */
 .page-hero-media{position:absolute;inset:0;overflow:hidden;}
+.page-hero-media iframe{
+  position:absolute;
+  /* Centro del contenedor */
+  top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  /* Mínimo: ancho = 100% del contenedor, alto proporcional 16:9
+     Si el hero es más ancho que 16:9 → el alto queda corto → usamos min-height */
+  width:100%;
+  height:56.25vw;   /* 100vw × 9/16 */
+  min-width:177.78vh; /* 100vh × 16/9 — cubre cuando el hero es muy ancho */
+  min-height:100%;
+  border:none;
+  pointer-events:none;
+}
 .hero-slide{position:absolute;inset:0;opacity:0;transition:opacity .8s ease;background-size:cover;background-position:center;}
 .hero-slide.active{opacity:1;}
 .hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
@@ -1532,53 +1546,76 @@ initAllHeroes();
 /* ═══════════════════════════════════════
    HERO NIVEL + NAVEGACIÓN DOBLE
 ═══════════════════════════════════════ */
-// levelData: editá fotos (separadas por coma) y video para cada nivel
+/*
+  levelData — cada nivel tiene:
+    · badge, cls, title, desc  → texto del hero
+    · tabs[]: array con una entrada por sub-tab (Equipo / Oficial / Kodesh)
+              cada entrada: { fotos:'url,url,...', video:'url' }
+  Para cambiar un video: editá la URL en el tab correspondiente.
+  Medidas recomendadas para Vimeo:
+    · Subí el video en 1920×1080 (16:9) — el iframe lo llena automáticamente.
+    · En Vimeo: Privacy → "Hide from Vimeo" + "Allow embedding everywhere".
+    · URL: https://vimeo.com/ID (el ?fl=tl&fe=ec se ignora, se usa solo el ID)
+*/
 const levelData=[
   {
-    fotos: '',
-    video: 'https://stream.vidhosting.in/videos/988aca6a.mp4',
     badge:'Nuestro gan soñado', cls:'badge-inicial',
-    title:'גן - Jardín e Inicial', desc:'De 18 meses a 5 años. Primeros pasos en Torá y Mitzvot. Cálido, lúdico, afectivo.'
+    title:'גן - Jardín e Inicial', desc:'De 18 meses a 5 años. Primeros pasos en Torá y Mitzvot. Cálido, lúdico, afectivo.',
+    tabs:[
+      { fotos:'', video:'https://stream.vidhosting.in/videos/988aca6a.mp4' },  // Equipo
+      { fotos:'', video:'https://stream.vidhosting.in/videos/988aca6a.mp4' },  // Oficial
+      { fotos:'', video:'https://stream.vidhosting.in/videos/988aca6a.mp4' },  // Kodesh
+    ]
   },
   {
-    fotos: '',
-    video: 'https://vimeo.com/1198424685?fl=tl&fe=ec',
     badge:'יסודי · Nivel Primario', cls:'badge-primario',
-    title:'Nivel Primario', desc:'Formación integral, identidad judía y respeto por la Torá. 1° a 7° grado.'
+    title:'Nivel Primario', desc:'Formación integral, identidad judía y respeto por la Torá. 1° a 7° grado.',
+    tabs:[
+      { fotos:'', video:'' },                                                   // Equipo
+      { fotos:'', video:'' },                                                   // Oficial
+      { fotos:'', video:'https://vimeo.com/1198424685' },                       // Kodesh ← tu video
+    ]
   },
   {
-    fotos: 'https://i.ibb.co/PZ83MVjj/20240605-230301.jpg',
-    video: '',
     badge:'בנים · Sec. Varones', cls:'badge-sec',
-    title:'Secundario Varones', desc:'Área Kodesh — puentes afectivos a la Torá. Riguroso y con liderazgo.'
+    title:'Secundario Varones', desc:'Área Kodesh — puentes afectivos a la Torá. Riguroso y con liderazgo.',
+    tabs:[
+      { fotos:'https://i.ibb.co/PZ83MVjj/20240605-230301.jpg', video:'' },      // Equipo
+      { fotos:'https://i.ibb.co/PZ83MVjj/20240605-230301.jpg', video:'' },      // Oficial
+      { fotos:'https://i.ibb.co/PZ83MVjj/20240605-230301.jpg', video:'' },      // Kodesh
+    ]
   },
   {
-  fotos: 'https://i.ibb.co/Y4qXjbDV/Imagen-de-Whats-App-2025-06-05-a-las-14-34-43-1bdf90a2.jpg',
-    video: '',
     badge:'בנות · Sec. Mujeres', cls:'badge-sec',
-    title:'Secundario Mujeres', desc:'Área Kodesh — calidez, contención y legado. Inspirador y empoderante.'
+    title:'Secundario Mujeres', desc:'Área Kodesh — calidez, contención y legado. Inspirador y empoderante.',
+    tabs:[
+      { fotos:'https://i.ibb.co/Y4qXjbDV/Imagen-de-Whats-App-2025-06-05-a-las-14-34-43-1bdf90a2.jpg', video:'' }, // Equipo
+      { fotos:'https://i.ibb.co/Y4qXjbDV/Imagen-de-Whats-App-2025-06-05-a-las-14-34-43-1bdf90a2.jpg', video:'' }, // Oficial
+      { fotos:'https://i.ibb.co/Y4qXjbDV/Imagen-de-Whats-App-2025-06-05-a-las-14-34-43-1bdf90a2.jpg', video:'' }, // Kodesh
+    ]
   },
 ];
 
 let currentNivel=0;
 let currentSubTab=0;
 
-function changeLevelHero(i){
-  const d = levelData[i];
+function changeLevelHero(nivelIdx, tabIdx){
+  tabIdx = tabIdx ?? currentSubTab ?? 0;
+  const d = levelData[nivelIdx];
+  const tab = d.tabs[tabIdx] || d.tabs[0];
   const hero = document.getElementById('level-hero');
-  // Actualizar badge y textos
+  // Textos del hero
   const b = document.getElementById('level-badge');
   b.textContent = d.badge; b.className = 'level-badge ' + d.cls;
   document.getElementById('level-title').textContent = d.title;
   document.getElementById('level-desc').textContent = d.desc;
-  // Actualizar media: limpiar timer anterior si existe
+  // Media
   if(hero._carouselTimer) clearInterval(hero._carouselTimer);
-  // Asignar data y reconstruir
-  hero.dataset.fotos = d.fotos || '';
-  hero.dataset.video = d.video || '';
+  hero.dataset.fotos = tab.fotos || '';
+  hero.dataset.video = tab.video || '';
   const bg = document.getElementById('level-hero-bg');
   if(bg){ bg.innerHTML = ''; bg.style.backgroundImage = ''; bg.style.cssText = 'position:absolute;inset:0;background-size:cover;background-position:center;'; }
-  hero.querySelectorAll('.hero-slide, .hero-carousel-dots').forEach(el=>el.remove());
+  hero.querySelectorAll('.hero-slide, .hero-carousel-dots, .page-hero-media').forEach(el=>el.remove());
   buildHeroMedia(hero);
 }
 
@@ -1596,7 +1633,7 @@ function switchNivel(idx){
   if(activePanel){
     activePanel.querySelectorAll('.nivel-subpanel').forEach((sp,i)=>sp.classList.toggle('active',i===0));
   }
-  changeLevelHero(idx);
+  changeLevelHero(idx, 0);
   document.getElementById('nivel-tabs').scrollIntoView({behavior:'smooth',block:'start'});
 }
 
@@ -1608,6 +1645,7 @@ function switchNivelTab(btn,subIdx){
   if(activePanel){
     activePanel.querySelectorAll('.nivel-subpanel').forEach((sp,i)=>sp.classList.toggle('active',i===subIdx));
   }
+  changeLevelHero(currentNivel, subIdx);
 }
 
 /* ═══════════════════════════════════════
