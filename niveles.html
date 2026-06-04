@@ -1447,8 +1447,13 @@ function buildHeroMedia(heroEl){
   }
 
   if(slides.length === 1 && slides[0].type === 'img'){
-    // Caso simple: una sola foto → background-image estático
-    bgEl.style.backgroundImage = `url(${slides[0].src})`;
+    // Foto como <img> con object-fit:cover — igual que el video, llena siempre
+    bgEl.style.position = 'absolute';
+    bgEl.style.inset = '0';
+    bgEl.style.overflow = 'hidden';
+    bgEl.innerHTML = `<img src="${slides[0].src}"
+      style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;"
+      onerror="this.style.display='none'"/>`;
     return;
   }
 
@@ -1470,7 +1475,7 @@ function buildHeroMedia(heroEl){
     if(s.type === 'video'){
       return `<div class="hero-slide${activeClass}" style="position:absolute;inset:0;">${buildVideoSlideHTML(s.src)}</div>`;
     } else {
-      return `<div class="hero-slide${activeClass}" style="position:absolute;inset:0;background-size:cover;background-position:center;background-image:url(${s.src});"></div>`;
+      return `<div class="hero-slide${activeClass}" style="position:absolute;inset:0;overflow:hidden;"><img src="${s.src}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;" onerror="this.style.display='none'"/></div>`;
     }
   }).join('');
 
