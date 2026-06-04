@@ -43,7 +43,7 @@ a{color:var(--primary);text-decoration:none;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
 
 /* ── PAGE HERO ── */
-.page-hero{position:relative;width:100%;height:420px;display:flex;align-items:flex-end;overflow:hidden;background:#0a0a32;}
+.page-hero{position:relative;width:100%;height:420px;display:flex;align-items:flex-end;overflow:hidden;background:#000;}
 .page-hero-bg{position:absolute;inset:0;width:100%;height:100%;background-size:cover;background-position:center;transition:transform .6s ease;}
 .page-hero:hover .page-hero-bg{transform:scale(1.03);}
 .page-hero-overlay{position:absolute;inset:0;width:100%;height:100%;background:linear-gradient(to top,rgba(10,10,50,.85) 0%,rgba(10,10,50,.4) 50%,rgba(10,10,50,.15) 100%);}
@@ -516,7 +516,7 @@ footer{background:var(--primary);border-top:3px solid var(--accent);padding:2rem
 /* ══════════════════════════════════════
    HERO CAROUSEL + VIDEO
 ══════════════════════════════════════ */
-.page-hero-media{position:absolute;inset:0;width:100%;height:100%;overflow:hidden;}
+.page-hero-media{position:absolute;inset:0;width:100%;height:100%;overflow:hidden;background:#000;}
 .page-hero-media iframe{
   position:absolute;
   top:50%; left:50%;
@@ -1441,8 +1441,16 @@ function buildHeroMedia(heroEl){
   fotos.forEach(f => slides.push({type:'img', src: f}));
 
   if(slides.length === 0){
-    // Sin media: fondo oscuro, nada que hacer
-    bgEl.style.background = 'rgba(19,19,79,0.6)';
+    // Sin media: intentar foto de fallback del nivel, si no fondo oscuro
+    const fallback = heroEl.dataset.fallback || '';
+    if(fallback){
+      bgEl.style.position = 'absolute';
+      bgEl.style.inset = '0';
+      bgEl.style.overflow = 'hidden';
+      bgEl.innerHTML = `<img src="${fallback}"
+        style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;"
+        onerror="this.style.display='none'"/>`;
+    }
     return;
   }
 
@@ -1528,8 +1536,8 @@ function buildVideoSlideHTML(url){
   if(url.includes('vimeo.com')){
     const id = url.split('vimeo.com/')[1]?.split('?')[0];
     if(id) return `<iframe
-      src="https://player.vimeo.com/video/${id}?autoplay=1&muted=1&loop=1&background=1&autopause=0"
-      style="position:absolute;inset:-10%;width:120%;height:120%;border:none;pointer-events:none;"
+      src="https://player.vimeo.com/video/${id}?autoplay=1&muted=1&loop=1&background=1&autopause=0&quality=1080p"
+      style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:200%;height:200%;min-width:177.78vh;border:none;pointer-events:none;"
       allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
   }
   // Video directo mp4/webm — autoplay nativo, siempre funciona si el navegador lo permite
@@ -1573,9 +1581,10 @@ const levelData=[
   {
     badge:'יסודי · Nivel Primario', cls:'badge-primario',
     title:'Nivel Primario', desc:'Formación integral, identidad judía y respeto por la Torá. 1° a 7° grado.',
+    fallback: 'https://i.ibb.co/PZ83MVjj/20240605-230301.jpg',
     tabs:[
-      { fotos:'', video:'' },                                                   // Equipo
-      { fotos:'', video:'' },                                                   // Oficial
+      { fotos:'', video:'' },                                                   // Equipo      ← agregá foto acá
+      { fotos:'', video:'' },                                                   // Oficial     ← agregá foto acá
       { fotos:'', video:'https://vimeo.com/1198424685' },                       // Kodesh ← tu video
     ]
   },
@@ -1616,6 +1625,7 @@ function changeLevelHero(nivelIdx, tabIdx){
   if(hero._carouselTimer) clearInterval(hero._carouselTimer);
   hero.dataset.fotos = tab.fotos || '';
   hero.dataset.video = tab.video || '';
+  hero.dataset.fallback = d.fallback || '';
   const bg = document.getElementById('level-hero-bg');
   if(bg){ bg.innerHTML = ''; bg.style.backgroundImage = ''; bg.style.cssText = 'position:absolute;inset:0;background-size:cover;background-position:center;'; }
   hero.querySelectorAll('.hero-slide, .hero-carousel-dots, .page-hero-media').forEach(el=>el.remove());
