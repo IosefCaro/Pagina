@@ -1503,15 +1503,24 @@ function changeLevelHero(nivelIdx, tabIdx){
   const d = levelData[nivelIdx];
   const tab = d.tabs[tabIdx] || d.tabs[0];
   const hero = document.getElementById('level-hero');
-  // Textos del hero
+
+  // ── Textos: siempre actualizar ──
   const b = document.getElementById('level-badge');
   b.textContent = d.badge; b.className = 'level-badge ' + d.cls;
   document.getElementById('level-title').textContent = tab.title || d.title;
   document.getElementById('level-desc').textContent = tab.desc || d.desc;
-  // Media
+
+  // ── Media: solo reconstruir si cambió ──
+  const newFotos = tab.fotos || '';
+  const newVideo = tab.video || '';
+  const prevFotos = hero.dataset.fotos || '';
+  const prevVideo = hero.dataset.video || '';
+
+  if(newFotos === prevFotos && newVideo === prevVideo) return; // nada cambió, no tocar
+
   if(hero._carouselTimer) clearInterval(hero._carouselTimer);
-  hero.dataset.fotos = tab.fotos || '';
-  hero.dataset.video = tab.video || '';
+  hero.dataset.fotos = newFotos;
+  hero.dataset.video = newVideo;
   hero.dataset.fallback = d.fallback || '';
   const bg = document.getElementById('level-hero-bg');
   if(bg){ bg.innerHTML = ''; bg.style.backgroundImage = ''; bg.style.cssText = 'position:absolute;inset:0;background-size:cover;background-position:center;'; }
