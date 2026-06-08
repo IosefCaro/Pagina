@@ -653,7 +653,7 @@ Nuestro Legado
 
   <div class="page-hero" id="level-hero"
     data-fotos=""
-    data-video="https://stream.vidhosting.in/videos/988aca6a.mp4"
+    data-video=""
     style="width:100%;left:0;right:0;position:relative;">
     <!--
     ══════════════════════════════════════════
@@ -665,7 +665,7 @@ Nuestro Legado
     <div class="page-hero-bg" id="level-hero-bg"></div>
     <div class="page-hero-overlay"></div>
     <div class="page-hero-content">
-      <div class="level-badge badge-inicial" id="level-badge">Nuestro Gan Soñado</div>
+      <div class="level-badge badge-inicial" id="level-badge">גן · Nuestro Gan Soñado</div>
       <h1 class="pb-title" id="level-title">ג · Nivel Inicial</h1>
       <p class="pb-desc" id="level-desc">De Maternal a 5 años. Primeros pasos en Torá y Mitzvot.</p>
     </div>
@@ -1435,11 +1435,10 @@ function buildVideoSlideHTML(url){
 }
 
 
-// Inicializar todos los heroes con data-fotos/data-video al cargar
+// Inicializar hero desde levelData — siempre nivel 0, tab 0
 function initAllHeroes(){
-  document.querySelectorAll('.page-hero[data-fotos], .page-hero[data-video]').forEach(buildHeroMedia);
+  changeLevelHero(0, 0);
 }
-initAllHeroes();
 
 /* ═══════════════════════════════════════
    HERO NIVEL + NAVEGACIÓN DOBLE
@@ -1457,10 +1456,10 @@ initAllHeroes();
 */
 const levelData=[
   {
-    badge:'Nuestro gan soñado', cls:'badge-inicial',
+    badge:'גן · Nuestro gan soñado', cls:'badge-inicial',
     title:'גן - Jardín e Inicial', desc:'De 18 meses a 5 años. Primeros pasos en Torá y Mitzvot. Cálido, lúdico, afectivo.',
     tabs:[
-      { fotos:'https://i.ibb.co/DDTM9FVP/NIC-2616.jpg|center 30%', video:'', title:'Equipo del Jardín', desc:'El equipo que abraza, acompaña y cuida a cada niño desde el primer día.' },          // Equipo
+      { fotos:'https://i.ibb.co/DDTM9FVP/NIC-2616.jpg|center 80%', video:'', title:'Equipo del Jardín', desc:'El equipo que abraza, acompaña y cuida a cada niño desde el primer día.' },          // Equipo
       { fotos:'https://i.ibb.co/mf7Mm6R/web-8.jpg,https://i.ibb.co/HpT6MnWf/web-2.jpg,https://i.ibb.co/1YMZvVVx/web-3.jpg,https://i.ibb.co/xKX0sVRs/IMG-20260529-092842242.jpg,https://i.ibb.co/57r8Q46/IMG-20260529-094641702.jpg', video:'', title:'Propuesta Oficial', desc:'Aprendizaje lúdico, tres idiomas y una pedagogía cálida desde los 18 meses.' },            // Oficial
       { fotos:'https://i.ibb.co/mf7Mm6R/web-8.jpg,https://i.ibb.co/HpT6MnWf/web-2.jpg,https://i.ibb.co/1YMZvVVx/web-3.jpg,https://i.ibb.co/xKX0sVRs/IMG-20260529-092842242.jpg,https://i.ibb.co/57r8Q46/IMG-20260529-094641702.jpg', video:'', title:'Área Kodesh', desc:'Primeros pasos en Torá, Mitzvot y el calendario hebreo. Con alegría y amor.' },                   // Kodesh
     ]
@@ -1494,6 +1493,7 @@ const levelData=[
     ]
   },
 ];
+initAllHeroes();
 
 let currentNivel=0;
 let currentSubTab=0;
