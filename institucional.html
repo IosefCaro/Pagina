@@ -210,8 +210,11 @@ a{color:var(--primary);text-decoration:none;}
 .staff-section{width:100%;}
 .staff-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-bottom:.5rem;}
 .staff-grid-4{grid-template-columns:repeat(4,1fr);}
-@media(max-width:900px){.staff-grid{grid-template-columns:repeat(2,1fr);}.staff-grid-4{grid-template-columns:repeat(2,1fr);}}
-@media(max-width:560px){.staff-grid,.staff-grid-4{grid-template-columns:1fr;}}
+.staff-grid-dirs{grid-template-columns:repeat(4,1fr);gap:1.1rem;}
+.staff-grid-coords{grid-template-columns:repeat(4,1fr);gap:1rem;}
+.staff-grid-admin{grid-template-columns:repeat(5,1fr);gap:.85rem;}
+@media(max-width:900px){.staff-grid,.staff-grid-dirs,.staff-grid-coords{grid-template-columns:repeat(2,1fr);}.staff-grid-4,.staff-grid-admin{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:560px){.staff-grid,.staff-grid-4,.staff-grid-dirs,.staff-grid-coords,.staff-grid-admin{grid-template-columns:repeat(2,1fr);}}
 
 /* card base */
 .staff-card{
@@ -223,6 +226,19 @@ a{color:var(--primary);text-decoration:none;}
   cursor:default;
   background:linear-gradient(160deg,#1a1a6e 0%,var(--primary) 100%);
 }
+
+/* jerarquía de tamaños */
+.staff-card-dir{aspect-ratio:4/5;}
+.staff-card-dir .staff-name{font-size:.9rem;}
+.staff-card-dir .staff-role-tag{font-size:.48rem;}
+.staff-card-dir .staff-info{padding:1rem 1rem .95rem;}
+
+.staff-card-coord{aspect-ratio:1/1;}
+.staff-card-coord .staff-name{font-size:.82rem;}
+.staff-card-coord .staff-role-tag{font-size:.45rem;}
+.staff-card-coord .staff-info{padding:.85rem .9rem .8rem;}
+.staff-card-coord .staff-initials{font-size:2.2rem;}
+.staff-card-coord .staff-info::before{width:20px;margin-bottom:.4rem;}
 .staff-card:hover{transform:translateY(-5px);box-shadow:0 16px 36px rgba(19,19,79,.2);}
 
 /* foto de fondo */
@@ -298,8 +314,13 @@ a{color:var(--primary);text-decoration:none;}
 .staff-card:hover .staff-info::before{width:48px;}
 
 /* card compacta (admin) */
-.staff-card-sm{aspect-ratio:1/1;}
-.staff-card-sm .staff-name{font-size:.88rem;}
+.staff-card-sm{aspect-ratio:4/5;}
+.staff-card-sm .staff-name{font-size:.78rem;}
+.staff-card-sm .staff-role-tag{font-size:.42rem;}
+.staff-card-sm .staff-info{padding:.75rem .8rem .7rem;}
+.staff-card-sm .staff-initials{font-size:2rem;}
+.staff-card-sm .staff-desc{font-size:.68rem;}
+.staff-card-sm .staff-info::before{width:16px;margin-bottom:.35rem;}
 
 .staff-divider{height:1px;background:var(--border);margin:2.5rem 0 1.5rem;}
 
@@ -696,11 +717,11 @@ Aspiramos a que cada alumno se sienta profundamente identificado con su judaísm
 
         <div class="staff-divider"></div>
         <p class="s-label">Directores</p>
-        <div class="staff-grid">
+        <div class="staff-grid staff-grid-dirs">
 
           <!-- Leonardo Acuña
  -->
-          <div class="staff-card">
+          <div class="staff-card staff-card-dir">
             <img class="staff-avatar" src="PEGAR_URL_FOTO_MR" alt="Prof. Leonardo Acuña"
                  onerror="this.style.background='linear-gradient(135deg,#3320a0,#5539F2)';this.style.display='none'"/>
             <div class="staff-overlay"></div>
@@ -711,7 +732,7 @@ Aspiramos a que cada alumno se sienta profundamente identificado con su judaísm
           </div>
 
           <!-- Lic. Viviana Vega -->
-          <div class="staff-card">
+          <div class="staff-card staff-card-dir">
             <img class="staff-avatar" src="PEGAR_URL_FOTO_SB" alt="Lic. Viviana Vega"
                  onerror="this.style.display='none'"/>
             <div class="staff-overlay"></div>
@@ -722,7 +743,7 @@ Aspiramos a que cada alumno se sienta profundamente identificado con su judaísm
           </div>
 
           <!-- Lic. Jessica Yablsowski-->
-          <div class="staff-card">
+          <div class="staff-card staff-card-dir">
             <img class="staff-avatar" src="PEGAR_URL_FOTO_AG" alt="Lic. Jessica Yablsowski"
                  onerror="this.style.display='none'"/>
             <div class="staff-overlay"></div>
@@ -735,10 +756,10 @@ Aspiramos a que cada alumno se sienta profundamente identificado con su judaísm
         </div>
 
         <div class="staff-divider"></div>
-        <div class="staff-grid">
+        <div class="staff-grid staff-grid-coords">
 
           <!-- Julieta Shaferstei -->
-          <div class="staff-card">
+          <div class="staff-card staff-card-coord">
             <img class="staff-avatar" src="PEGAR_URL_FOTO_VN" alt="Julieta Shaferstei"
                  onerror="this.style.display='none'"/>
             <div class="staff-overlay" style="background:linear-gradient(to top,rgba(0,50,90,.95) 0%,rgba(0,50,90,.5) 50%,transparent 100%);"></div>
@@ -749,7 +770,7 @@ Aspiramos a que cada alumno se sienta profundamente identificado con su judaísm
           </div>
 
           <!-- Paola Danesi -->
-          <div class="staff-card">
+          <div class="staff-card staff-card-coord">
             <img class="staff-avatar" src="PEGAR_URL_FOTO_RL" alt="Paola Danesi"
                  onerror="this.style.display='none'"/>
             <div class="staff-overlay" style="background:linear-gradient(to top,rgba(0,50,90,.95) 0%,rgba(0,50,90,.5) 50%,transparent 100%);"></div>
@@ -760,7 +781,7 @@ Aspiramos a que cada alumno se sienta profundamente identificado con su judaísm
           </div>
 
           <!-- Melanie Helueni -->
-          <div class="staff-card">
+          <div class="staff-card staff-card-coord">
             <img class="staff-avatar" src="PEGAR_URL_FOTO_ET" alt="Melanie Helueni"
                  onerror="this.style.display='none'"/>
             <div class="staff-overlay" style="background:linear-gradient(to top,rgba(0,50,90,.95) 0%,rgba(0,50,90,.5) 50%,transparent 100%);"></div>
@@ -774,7 +795,7 @@ Aspiramos a que cada alumno se sienta profundamente identificado con su judaísm
 
         <div class="staff-divider"></div>
         <p class="s-label">Administración y Gestión</p>
-        <div class="staff-grid staff-grid-4">
+        <div class="staff-grid staff-grid-admin">
 
           <div class="staff-card staff-card-sm">
             <img class="staff-avatar" src="PEGAR_URL_FOTO_CF" alt="Claudia Feinstein" onerror="this.style.display='none'"/>
