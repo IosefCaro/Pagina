@@ -214,6 +214,9 @@ a{color:var(--primary);text-decoration:none;}
 .staff-grid-dirs .staff-card-dir{flex:0 0 calc(33.333% - 0.74rem);max-width:calc(33.333% - 0.74rem);}
 .staff-grid-coords{grid-template-columns:repeat(4,1fr);gap:1rem;}
 .staff-grid-admin{grid-template-columns:repeat(5,1fr);gap:.85rem;}
+.staff-grid-single{display:flex;justify-content:center;margin-bottom:.5rem;}
+.staff-grid-single .staff-card{width:100%;max-width:320px;}
+@media(max-width:560px){.staff-grid-single .staff-card{max-width:260px;}}
 @media(max-width:900px){.staff-grid,.staff-grid-coords{grid-template-columns:repeat(2,1fr);}.staff-grid-dirs .staff-card-dir{flex:0 0 calc(50% - 0.56rem);max-width:calc(50% - 0.56rem);}.staff-grid-4,.staff-grid-admin{grid-template-columns:repeat(3,1fr);}}
 @media(max-width:560px){.staff-grid,.staff-grid-4,.staff-grid-coords,.staff-grid-admin{grid-template-columns:repeat(2,1fr);}.staff-grid-dirs .staff-card-dir{flex:0 0 calc(50% - 0.56rem);max-width:calc(50% - 0.56rem);}}
 
@@ -700,7 +703,7 @@ Aspiramos a que cada alumno se sienta profundamente identificado con su judaísm
 </div>
 
 <p class="s-label">Conducción General</p>
-        <div class="staff-grid">
+        <div class="staff-grid staff-grid-single">
 
           <!-- Rabino Nisim Smechow -->
           <div class="staff-card">
@@ -811,6 +814,7 @@ Aspiramos a que cada alumno se sienta profundamente identificado con su judaísm
               <div class="staff-name">Melanie Helueni</div>
             </div>
           </div>
+          
 
         </div>
       </div>
