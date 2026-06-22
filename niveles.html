@@ -386,6 +386,18 @@ a{color:var(--primary);text-decoration:none;}
 .staff-card-sm .staff-name{font-size:.88rem;}
 .staff-divider{height:1px;background:var(--border);margin:2.5rem 0 1.5rem;}
 
+/* ══ TXT STAFF CARDS — texto sin foto ══ */
+.txt-staff-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:.5rem;}
+@media(max-width:900px){.txt-staff-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:560px){.txt-staff-grid{grid-template-columns:1fr;}}
+.txt-staff-card{background:var(--white);border:1px solid var(--border);border-top:3px solid var(--primary);padding:1.25rem 1.4rem;transition:transform .3s,box-shadow .3s;box-shadow:0 2px 8px rgba(19,19,79,.05);}
+.txt-staff-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(19,19,79,.12);}
+.txt-staff-role{font-size:.58rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:.4rem;}
+.txt-staff-name{font-family:'Playfair Display',serif;font-size:1rem;color:var(--primary);line-height:1.3;}
+.txt-staff-desc{font-size:.78rem;color:var(--muted);line-height:1.7;margin-top:.5rem;font-style:italic;}
+.txt-staff-kodesh{border-top-color:#5539F2;}.txt-staff-kodesh .txt-staff-role{color:#5539F2;}
+.txt-staff-coord{border-top-color:#1a6e9e;}.txt-staff-coord .txt-staff-role{color:#1a6e9e;}
+
 /* Nivel panels (2 niveles de navegación) */
 .nivel-panel{display:none;}
 .nivel-panel.active{display:block;animation:fadeUp .35s ease;}
@@ -702,39 +714,23 @@ Nuestro Legado
       <div class="nivel-subpanel active">
         <div class="staff-section">
           <p class="s-label">Equipo del Nivel</p>
-          <div class="staff-grid">
-            <div class="staff-card" >
-              <img class="staff-avatar" src="PEGAR_URL_FOTO_NS" alt="Rabino Nisim Smechow" onerror="this.style.display='none'"/>
-              <div class="staff-overlay"></div>
-              <div class="staff-info">
-                <div class="staff-role-tag">Director General</div>
-                <div class="staff-name">Rabino Nisim Smechow</div>
-                <div class="staff-desc">Máxima autoridad de la institución. Conduce el colegio con dedicación a la educación judía.</div>
-              </div>
+          <div class="txt-staff-grid">
+            <div class="txt-staff-card">
+              <div class="txt-staff-role">Director General</div>
+              <div class="txt-staff-name">Rabino Nisim Smechow</div>
+              <div class="txt-staff-desc">Máxima autoridad de la institución. Conduce el colegio con dedicación a la educación judía.</div>
             </div>
-            <div class="staff-card" >
-              <img class="staff-avatar" src="PEGAR_URL_FOTO_JY" alt="Lic. Jessica Yablsowski" onerror="this.style.display='none'"/>
-              <div class="staff-overlay"></div>
-              <div class="staff-info">
-                <div class="staff-role-tag">Directora Nivel Inicial</div>
-                <div class="staff-name">Lic. Jessica Yablsowski</div>
-              </div>
+            <div class="txt-staff-card">
+              <div class="txt-staff-role">Directora Nivel Inicial</div>
+              <div class="txt-staff-name">Lic. Jessica Yablsowski</div>
             </div>
-            <div class="staff-card" >
-              <img class="staff-avatar" src="PEGAR_URL_FOTO_RC" alt="Rabino Shlomo Cohen" onerror="this.style.display='none'"/>
-              <div class="staff-overlay"></div>
-              <div class="staff-info">
-                <div class="staff-role-tag">Coordinadora Área Kodesh</div>
-                <div class="staff-name">Lea Suli</div>
-              </div>
+            <div class="txt-staff-card txt-staff-kodesh">
+              <div class="txt-staff-role">Coordinadora Área Kodesh</div>
+              <div class="txt-staff-name">Lea Suli</div>
             </div>
-            <div class="staff-card" style="background:linear-gradient(160deg,#1a3a6e,#2a4a8e);">
-              <img class="staff-avatar" src="PEGAR_URL_FOTO_DF" alt="Psic. Jazmin Fischer" onerror="this.style.display='none'"/>
-              <div class="staff-overlay"></div>
-              <div class="staff-info">
-                <div class="staff-role-tag">Psicóloga del Nivel</div>
-                <div class="staff-name">Psic. Jazmin Fischer</div>
-              </div>
+            <div class="txt-staff-card txt-staff-coord">
+              <div class="txt-staff-role">Psicóloga del Nivel</div>
+              <div class="txt-staff-name">Psic. Jazmin Fischer</div>
             </div>
           </div>
         </div>
@@ -832,55 +828,31 @@ Nuestro Legado
       <div class="nivel-subpanel active">
         <div class="staff-section">
           <p class="s-label">Equipo del Nivel</p>
-          <div class="staff-grid">
-            <div class="staff-card" >
-              <img class="staff-avatar" src="PEGAR_URL_FOTO_NS" alt="Rabino Nisim Smechow" onerror="this.style.display='none'"/>
-              <div class="staff-overlay"></div>
-              <div class="staff-info">
-                <div class="staff-role-tag">Director General</div>
-                <div class="staff-name">Rabino Nisim Smechow</div>
-                <div class="staff-desc">Máxima autoridad de la institución. Conduce el colegio con dedicación a la educación judía.</div>
-              </div>
+          <div class="txt-staff-grid">
+            <div class="txt-staff-card">
+              <div class="txt-staff-role">Director General</div>
+              <div class="txt-staff-name">Rabino Nisim Smechow</div>
+              <div class="txt-staff-desc">Máxima autoridad de la institución. Conduce el colegio con dedicación a la educación judía.</div>
             </div>
-            <div class="staff-card" >
-              <img class="staff-avatar" src="PEGAR_URL_FOTO_VV" alt="Lic. Viviana Vega" onerror="this.style.display='none'"/>
-              <div class="staff-overlay"></div>
-              <div class="staff-info">
-                <div class="staff-role-tag">Directora Nivel Primario</div>
-                <div class="staff-name">Lic. Viviana Vega</div>
-              </div>
+            <div class="txt-staff-card">
+              <div class="txt-staff-role">Directora Nivel Primario</div>
+              <div class="txt-staff-name">Lic. Viviana Vega</div>
             </div>
-            <div class="staff-card" >
-              <img class="staff-avatar" src="PEGAR_URL_FOTO_SHL" alt="Luciana Jakubowicz" onerror="this.style.display='none'"/>
-              <div class="staff-overlay"></div>
-              <div class="staff-info">
-                <div class="staff-role-tag"> Coordinadora pedagógica </div>
-                <div class="staff-name">Luciana Jakubowicz</div>
-              </div>
+            <div class="txt-staff-card txt-staff-coord">
+              <div class="txt-staff-role">Coordinadora Pedagógica</div>
+              <div class="txt-staff-name">Luciana Jakubowicz</div>
             </div>
-            <div class="staff-card" style="background:linear-gradient(160deg,#1a3a6e,#2a4a8e);">
-              <img class="staff-avatar" src="PEGAR_URL_FOTO_SR" alt="Leila Tarica" onerror="this.style.display='none'"/>
-              <div class="staff-overlay"></div>
-              <div class="staff-info">
-                <div class="staff-role-tag">Referente Kodesh en el àrea oficial</div>
-                <div class="staff-name">Leila Tarica </div>
-              </div>
+            <div class="txt-staff-card txt-staff-kodesh">
+              <div class="txt-staff-role">Referente Kodesh · Área Oficial</div>
+              <div class="txt-staff-name">Leila Tarica</div>
             </div>
-             <div class="staff-card" style="background:linear-gradient(160deg,#1a3a6e,#2a4a8e);">
-              <img class="staff-avatar" src="PEGAR_URL_FOTO_SR" alt="Ioni Cohen" onerror="this.style.display='none'"/>
-              <div class="staff-overlay"></div>
-              <div class="staff-info">
-                <div class="staff-role-tag">Coordinador área Kodesh varones</div>
-                <div class="staff-name">Ioni Cohen</div>
-              </div>
+            <div class="txt-staff-card txt-staff-kodesh">
+              <div class="txt-staff-role">Coordinador Área Kodesh Varones</div>
+              <div class="txt-staff-name">Ioni Cohen</div>
             </div>
-            <div class="staff-card" style="background:linear-gradient(160deg,#1a3a6e,#2a4a8e);">
-              <img class="staff-avatar" src="PEGAR_URL_FOTO_SR" alt="Ionit Mohadeb" onerror="this.style.display='none'"/>
-              <div class="staff-overlay"></div>
-              <div class="staff-info">
-                <div class="staff-role-tag">Coordinadora área Kodesh mujeres</div>
-                <div class="staff-name">Ionit Mohadeb</div>
-              </div>
+            <div class="txt-staff-card txt-staff-kodesh">
+              <div class="txt-staff-role">Coordinadora Área Kodesh Mujeres</div>
+              <div class="txt-staff-name">Ionit Mohadeb</div>
             </div>
           </div>
         </div>
@@ -972,39 +944,23 @@ Nuestro Legado
       <div class="nivel-subpanel active">
         <div class="staff-section">
           <p class="s-label">Equipo del Nivel</p>
-          <div class="staff-grid">
-            <div class="staff-card" >
-              <img class="staff-avatar" src="PEGAR_URL_FOTO_NS" alt="Rabino Nisim Smechow" onerror="this.style.display='none'"/>
-              <div class="staff-overlay"></div>
-              <div class="staff-info">
-                <div class="staff-role-tag">Director General</div>
-                <div class="staff-name">Rabino Nisim Smechow</div>
-                <div class="staff-desc">Máxima autoridad de la institución. Conduce el colegio con dedicación a la educación judía. <em>"Nuestro desafío es que cada alumno se sienta conocido, acompañado y exigido para alcanzar su mejor versión."</em></div>
-              </div>
+          <div class="txt-staff-grid">
+            <div class="txt-staff-card">
+              <div class="txt-staff-role">Director General</div>
+              <div class="txt-staff-name">Rabino Nisim Smechow</div>
+              <div class="txt-staff-desc">"Nuestro desafío es que cada alumno se sienta conocido, acompañado y exigido para alcanzar su mejor versión."</div>
             </div>
-            <div class="staff-card" >
-              <img class="staff-avatar" src="https://i.ibb.co/R4dYpM5X/Proyecci-n-matricula-4.jpg" alt="Prof. Leonardo Acuña" onerror="this.style.display='none'"/>
-              <div class="staff-overlay"></div>
-              <div class="staff-info">
-                <div class="staff-role-tag">Rector Secundario</div>
-                <div class="staff-name">Prof. Leonardo Acuña</div>
-              </div>
+            <div class="txt-staff-card">
+              <div class="txt-staff-role">Rector Secundario</div>
+              <div class="txt-staff-name">Prof. Leonardo Acuña</div>
             </div>
-            <div class="staff-card" >
-              <img class="staff-avatar" src="https://i.ibb.co/RGcv4kZk/IMG-20260617-121201853.jpg" alt="Moré Rajamim Bassul" onerror="this.style.display='none'"/>
-              <div class="staff-overlay"></div>
-              <div class="staff-info">
-                <div class="staff-role-tag">Director Área Kodesh</div>
-                <div class="staff-name">Moré Rajamim Bassul</div>
-              </div>
+            <div class="txt-staff-card txt-staff-kodesh">
+              <div class="txt-staff-role">Director Área Kodesh</div>
+              <div class="txt-staff-name">Moré Rajamim Bassul</div>
             </div>
-            <div class="staff-card" >
-              <img class="staff-avatar" src="PEGAR_URL_FOTO_SHL" alt="Soledad Hugue Lajous" onerror="this.style.display='none'"/>
-              <div class="staff-overlay"></div>
-              <div class="staff-info">
-                <div class="staff-role-tag">Directora de Estudios</div>
-                <div class="staff-name">Soledad Hugue Lajous</div>
-              </div>
+            <div class="txt-staff-card txt-staff-coord">
+              <div class="txt-staff-role">Directora de Estudios</div>
+              <div class="txt-staff-name">Soledad Hugue Lajous</div>
             </div>
           </div>
         </div>
@@ -1122,40 +1078,24 @@ Nuestro Legado
       <div class="nivel-subpanel active">
         <div class="staff-section">
           <p class="s-label">Equipo del Nivel</p>
-          <div class="staff-grid">
-            <div class="staff-card" >
-              <img class="staff-avatar" src="PEGAR_URL_FOTO_NS" alt="Rabino Nisim Smechow" onerror="this.style.display='none'"/>
-              <div class="staff-overlay"></div>
-              <div class="staff-info">
-                <div class="staff-role-tag">Director General</div>
-                <div class="staff-name">Rabino Nisim Smechow</div>
-              </div>
+          <div class="txt-staff-grid">
+            <div class="txt-staff-card">
+              <div class="txt-staff-role">Director General</div>
+              <div class="txt-staff-name">Rabino Nisim Smechow</div>
             </div>
-            <div class="staff-card" >
-              <img class="staff-avatar" src="https://i.ibb.co/R4dYpM5X/Proyecci-n-matricula-4.jpg" alt="Prof. Leonardo Acuña" onerror="this.style.display='none'"/>
-              <div class="staff-overlay"></div>
-              <div class="staff-info">
-                <div class="staff-role-tag">Rector Secundario</div>
-                <div class="staff-name">Prof. Leonardo Acuña</div>
-              </div>
+            <div class="txt-staff-card">
+              <div class="txt-staff-role">Rector Secundario</div>
+              <div class="txt-staff-name">Prof. Leonardo Acuña</div>
             </div>
-            <div class="staff-card" >
-              <img class="staff-avatar" src="PEGAR_URL_FOTO_SHL" alt="Soledad Hugue Lajous" onerror="this.style.display='none'"/>
-              <div class="staff-overlay"></div>
-              <div class="staff-info">
-                <div class="staff-role-tag">Directora de Estudios</div>
-                <div class="staff-name">Soledad Hugue Lajous</div>
-                <div class="staff-desc"><em>"Buscamos que cada alumna encuentre un espacio donde crecer, aprender y sentirse valorada."</em></div>
-              </div>
+            <div class="txt-staff-card txt-staff-coord">
+              <div class="txt-staff-role">Directora de Estudios</div>
+              <div class="txt-staff-name">Soledad Hugue Lajous</div>
+              <div class="txt-staff-desc">"Buscamos que cada alumna encuentre un espacio donde crecer, aprender y sentirse valorada."</div>
             </div>
-            <div class="staff-card" >
-              <img class="staff-avatar" src="PEGAR_URL_FOTO_MZ" alt="Morá Margarita Zayat" onerror="this.style.display='none'"/>
-              <div class="staff-overlay"></div>
-              <div class="staff-info">
-                <div class="staff-role-tag">Directora Área Kodesh</div>
-                <div class="staff-name">Morá Margarita Zayat</div>
-                <div class="staff-desc"><em>"Acompañamos a cada alumna en la construcción de su identidad, sus valores y su proyecto de vida."</em></div>
-              </div>
+            <div class="txt-staff-card txt-staff-kodesh">
+              <div class="txt-staff-role">Directora Área Kodesh</div>
+              <div class="txt-staff-name">Morá Margarita Zayat</div>
+              <div class="txt-staff-desc">"Acompañamos a cada alumna en la construcción de su identidad, sus valores y su proyecto de vida."</div>
             </div>
           </div>
         </div>
