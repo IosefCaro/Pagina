@@ -328,6 +328,44 @@ a{color:var(--primary);text-decoration:none;}
 
 .staff-divider{height:1px;background:var(--border);margin:2.5rem 0 1.5rem;}
 
+/* ══════════════════════════════════════
+   TXT STAFF CARDS — texto sin foto (LeDor style)
+══════════════════════════════════════ */
+.txt-staff-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:.5rem;}
+.txt-staff-grid-3{grid-template-columns:repeat(3,1fr);}
+@media(max-width:900px){.txt-staff-grid{grid-template-columns:repeat(2,1fr);}.txt-staff-grid-3{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:560px){.txt-staff-grid,.txt-staff-grid-3{grid-template-columns:1fr;}}
+
+.txt-staff-card{
+  background:var(--white);
+  border:1px solid var(--border);
+  border-top:3px solid var(--primary);
+  padding:1.4rem 1.5rem;
+  transition:transform .3s,box-shadow .3s,border-color .3s;
+  box-shadow:0 2px 8px rgba(19,19,79,.05);
+}
+.txt-staff-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(19,19,79,.12);}
+.txt-staff-role{font-size:.58rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:.45rem;}
+.txt-staff-name{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--primary);line-height:1.3;}
+
+/* variante destacada — Director General */
+.txt-staff-featured{
+  border-top-width:4px;
+  border-top-color:var(--accent);
+  padding:1.8rem 2rem;
+  min-width:280px;
+  box-shadow:0 4px 18px rgba(19,19,79,.1);
+}
+.txt-staff-featured .txt-staff-name{font-size:1.3rem;}
+
+/* variante kodesh — acento violeta */
+.txt-staff-kodesh{border-top-color:#5539F2;}
+.txt-staff-kodesh .txt-staff-role{color:#5539F2;}
+
+/* variante coord — acento teal oscuro */
+.txt-staff-coord{border-top-color:#1a6e9e;}
+.txt-staff-coord .txt-staff-role{color:#1a6e9e;}
+
 /* Nivel panels (2 niveles de navegación) */
 .nivel-panel{display:none;}
 .nivel-panel.active{display:block;animation:fadeUp .35s ease;}
@@ -705,119 +743,68 @@ Aspiramos a que cada alumno se sienta profundamente identificado con su judaísm
   "Contamos con un cuerpo profesional con formación especializada y permanente vocación de mejora y actualización, que se desempeña día a día con una variedad de recursos metodológicos, proyectos especiales, trabajo interdisciplinario, salidas didácticas y continuo apoyo del Equipo de Orientación Educacional."
 </div>
 
-<p class="s-label">Conducción General</p>
-        <div class="staff-grid staff-grid-single">
-
-          <!-- Rabino Nisim Smechow -->
-          <div class="staff-card">
-            <img class="staff-avatar" src="https://i.ibb.co/21v78PpD/bb.jpg" alt="Rabino Nisim Smechow"
-                 onerror="this.style.display='none'"/>
-            <div class="staff-overlay"></div>
-            <div class="staff-info">
-              <div class="staff-role-tag">Director General</div>
-              <div class="staff-name">Rabino Nisim Smechow</div>
-            </div>
+<!-- ══ CONDUCCIÓN GENERAL ══ -->
+        <p class="s-label">Conducción General</p>
+        <div style="display:flex;justify-content:center;margin-bottom:2rem;">
+          <div class="txt-staff-card txt-staff-featured">
+            <div class="txt-staff-role">Director General</div>
+            <div class="txt-staff-name">Rabino Nisim Smechow</div>
           </div>
         </div>
 
         <div class="staff-divider"></div>
+
+        <!-- ══ DIRECTORES ══ -->
         <p class="s-label">Directores</p>
-        <div class="staff-grid staff-grid-dirs">
+        <div class="txt-staff-grid">
 
-          <!-- Leonardo Acuña
- -->
-          <div class="staff-card staff-card-dir">
-            <img class="staff-avatar" src="https://i.ibb.co/R4dYpM5X/Proyecci-n-matricula-4.jpg" alt="Prof.Leonardo Acuña"
-                 onerror="this.style.background='linear-gradient(135deg,#3320a0,#5539F2)';this.style.display='none'"/>
-            <div class="staff-overlay"></div>
-            <div class="staff-info">
-              <div class="staff-role-tag">Rector del Secundario de mujeres y varones</div>
-              <div class="staff-name">Prof. Leonardo Acuña</div>
-            </div>
+          <div class="txt-staff-card">
+            <div class="txt-staff-role">Rector del Secundario de mujeres y varones</div>
+            <div class="txt-staff-name">Prof. Leonardo Acuña</div>
           </div>
 
-          <!-- Lic. Viviana Vega -->
-          <div class="staff-card staff-card-dir">
-            <img class="staff-avatar" src="PEGAR_URL_FOTO_SB" alt="Lic. Viviana Vega"
-                 onerror="this.style.display='none'"/>
-            <div class="staff-overlay"></div>
-            <div class="staff-info">
-              <div class="staff-role-tag">Directora Nivel Primario</div>
-              <div class="staff-name">Lic. Viviana Vega</div>
-            </div>
+          <div class="txt-staff-card">
+            <div class="txt-staff-role">Directora Nivel Primario</div>
+            <div class="txt-staff-name">Lic. Viviana Vega</div>
           </div>
 
-          <!-- Lic. Jessica Yablsowski-->
-          <div class="staff-card staff-card-dir">
-            <img class="staff-avatar" src="PEGAR_URL_FOTO_AG" alt="Lic. Jessica Yablsowski"
-                 onerror="this.style.display='none'"/>
-            <div class="staff-overlay"></div>
-            <div class="staff-info">
-              <div class="staff-role-tag">Directora Nivel Inicial</div>
-              <div class="staff-name">Lic. Jessica Yablsowski</div>
-            </div>
+          <div class="txt-staff-card">
+            <div class="txt-staff-role">Directora Nivel Inicial</div>
+            <div class="txt-staff-name">Lic. Jessica Yablsowski</div>
           </div>
 
-           <!-- Moré Rajamim Bassul -->
-          <div class="staff-card staff-card-dir">
-            <img class="staff-avatar" src="https://i.ibb.co/RGcv4kZk/IMG-20260617-121201853.jpg" alt="Moré Rajamim Bassul"
-                 onerror="this.style.background='linear-gradient(135deg,#3320a0,#5539F2)';this.style.display='none'"/>
-            <div class="staff-overlay"></div>
-            <div class="staff-info">
-              <div class="staff-role-tag">Director Área Kodesh del secundario varones</div>
-              <div class="staff-name">Moré Rajamim Bassul</div>
-            </div>
+          <div class="txt-staff-card txt-staff-kodesh">
+            <div class="txt-staff-role">Director Área Kodesh · Sec. Varones</div>
+            <div class="txt-staff-name">Moré Rajamim Bassul</div>
           </div>
 
-           <!-- Morá Margarita Zayat -->
-          <div class="staff-card staff-card-dir">
-            <img class="staff-avatar" src="PEGAR_URL_FOTO_MR" alt="Morá Margarita Zayat"
-                 onerror="this.style.background='linear-gradient(135deg,#3320a0,#5539F2)';this.style.display='none'"/>
-            <div class="staff-overlay"></div>
-            <div class="staff-info">
-              <div class="staff-role-tag">Directora Área Kodesh del secundario mujeres</div>
-              <div class="staff-name">Morá Margarita Zayat</div>
-            </div>
+          <div class="txt-staff-card txt-staff-kodesh">
+            <div class="txt-staff-role">Directora Área Kodesh · Sec. Mujeres</div>
+            <div class="txt-staff-name">Morá Margarita Zayat</div>
           </div>
 
         </div>
 
         <div class="staff-divider"></div>
-        <div class="staff-grid staff-grid-coords">
 
-          <!-- Julieta Shaferstei -->
-          <div class="staff-card staff-card-coord">
-            <img class="staff-avatar" src="PEGAR_URL_FOTO_VN" alt="Julieta Shaferstei"
-                 onerror="this.style.display='none'"/>
-            <div class="staff-overlay" style="background:linear-gradient(to top,rgba(0,50,90,.95) 0%,rgba(0,50,90,.5) 50%,transparent 100%);"></div>
-            <div class="staff-info">
-              <div class="staff-role-tag">Coordinadora del Equipo de Orientación Escolar</div>
-              <div class="staff-name"> Julieta Shaferstein  </div>
-            </div>
+        <!-- ══ COORDINADORAS ══ -->
+        <p class="s-label">Coordinadoras</p>
+        <div class="txt-staff-grid txt-staff-grid-3">
+
+          <div class="txt-staff-card txt-staff-coord">
+            <div class="txt-staff-role">Coordinadora del Equipo de Orientación Escolar</div>
+            <div class="txt-staff-name">Julieta Shaferstein</div>
           </div>
 
-          <!-- Paola Danesi -->
-          <div class="staff-card staff-card-coord">
-            <img class="staff-avatar" src="PEGAR_URL_FOTO_RL" alt="Paola Danesi"
-                 onerror="this.style.display='none'"/>
-            <div class="staff-overlay" style="background:linear-gradient(to top,rgba(0,50,90,.95) 0%,rgba(0,50,90,.5) 50%,transparent 100%);"></div>
-            <div class="staff-info">
-              <div class="staff-role-tag">Coordinadora General de Ingles</div>
-              <div class="staff-name">Paola Danesi</div>
-            </div>
+          <div class="txt-staff-card txt-staff-coord">
+            <div class="txt-staff-role">Coordinadora General de Inglés</div>
+            <div class="txt-staff-name">Paola Danesi</div>
           </div>
 
-          <!-- Melanie Helueni -->
-          <div class="staff-card staff-card-coord">
-            <img class="staff-avatar" src="PEGAR_URL_FOTO_ET" alt="Melanie Helueni"
-                 onerror="this.style.display='none'"/>
-            <div class="staff-overlay" style="background:linear-gradient(to top,rgba(0,50,90,.95) 0%,rgba(0,50,90,.5) 50%,transparent 100%);"></div>
-            <div class="staff-info">
-              <div class="staff-role-tag">Gerente general de Servicios</div>
-              <div class="staff-name">Melanie Helueni</div>
-            </div>
+          <div class="txt-staff-card txt-staff-coord">
+            <div class="txt-staff-role">Gerente General de Servicios</div>
+            <div class="txt-staff-name">Melanie Helueni</div>
           </div>
-          
 
         </div>
       </div>
