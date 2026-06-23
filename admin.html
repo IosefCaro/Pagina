@@ -210,9 +210,19 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--ink);min-he
 
 <script type="module">
 import { initializeApp }   from 'https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js';
-import { getFirestore, collection, onSnapshot, addDoc, updateDoc,
-         deleteDoc, doc, orderBy, query, serverTimestamp }
-  from 'https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js';
+import {
+  getFirestore,
+  collection,
+  onSnapshot,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+  doc,
+  orderBy,
+  query,
+  serverTimestamp,
+  Timestamp
+} from 'https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js';
 // Storage no habilitado (plan gratuito) — usar URLs externas para fotos
 
 const FB = {
@@ -465,7 +475,7 @@ $('btn-save').onclick = async () => {
   const [fy,fm,fd] = fechaISO.split('-');
   const fechaObj = new Date(+fy, +fm-1, +fd);
   const date = fechaObj.toLocaleDateString('es-AR',{day:'numeric',month:'short',year:'numeric'});
-  const createdAt = Timestamp.fromDate(fechaObj);
+const createdAt = serverTimestamp();
   $('btn-save').disabled=true; $('btn-save').textContent='Guardando…';
   try {
     if(editingId){
