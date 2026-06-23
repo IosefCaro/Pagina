@@ -156,8 +156,14 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--ink);min-he
           <input type="text" id="np-autor" placeholder="Ej: Dirección General"/>
         </div>
       </div>
-      <div class="fg"><label>Descripción corta (aparece en la tarjeta del muro)</label>
-        <input type="text" id="np-excerpt" placeholder="Breve descripción…"/>
+      <div class="fg-row">
+        <div class="fg" style="flex:2"><label>Descripción corta (aparece en la tarjeta del muro)</label>
+          <input type="text" id="np-excerpt" placeholder="Breve descripción…"/>
+        </div>
+        <div class="fg" style="flex:1"><label>Fecha de publicación</label>
+          <input type="date" id="np-fecha"/>
+          <p style="font-size:.63rem;color:var(--muted);margin-top:.25rem;">Dejá vacío para usar la fecha de hoy.</p>
+        </div>
       </div>
       <div class="fg"><label>Foto de portada</label>
         <div style="display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;">
@@ -222,7 +228,7 @@ const db      = getFirestore(app);
 
 
 /* ── constantes UI ── */
-const ADMIN_PASS = 'iosefcaro2025';
+const ADMIN_PASS = 'iosefcaro2026';
 const catLabels  = {institucional:'Institucional',inicial:'Inicial',primario:'Primario',secundario:'Secundario',comunidad:'Comunidad',logros:'Logros'};
 const catColors  = {institucional:'#13134F',inicial:'#c88b00',primario:'#6a9000',secundario:'#5539F2',comunidad:'#E85D04',logros:'#0077B6'};
 const catEmoji   = {institucional:'🏛️',inicial:'🌱',primario:'📖',secundario:'🎓',comunidad:'🤝',logros:'🏆'};
@@ -316,6 +322,8 @@ function openNew(){
   $('modal-title').textContent = 'Nueva Novedad';
   $('btn-save').textContent = 'Publicar novedad';
   clearForm();
+  // fecha de hoy por defecto
+  $('np-fecha').value = new Date().toISOString().split('T')[0];
   addBlock('text');
   $('modal-post').classList.remove('hidden');
 }
@@ -335,6 +343,10 @@ function openEdit(firestoreId){
   else { prev.style.display='none'; }
   $('np-blocks').innerHTML=''; blockCount=0;
   (p.blocks||[]).forEach(b => addBlock(b.type==='photo'?'photo':b.type==='video'?'video':'text', b.content));
+  // cargar fecha guardada en formato yyyy-mm-dd para el input date
+  if(p.fechaISO){ $('np-fecha').value = p.fechaISO; }
+  else if(p.createdAt?.toDate){ $('np-fecha').value = p.createdAt.toDate().toISOString().split('T')[0]; }
+  else { $('np-fecha').value = new Date().toISOString().split('T')[0]; }
   $('modal-post').classList.remove('hidden');
 }
 function clearForm(){
@@ -448,15 +460,20 @@ $('btn-save').onclick = async () => {
   const cat=$('np-cat').value, autor=$('np-autor').value.trim()||'Institución',
         excerpt=$('np-excerpt').value.trim()||titulo,
         coverUrl=$('np-cover-url').value.trim(), blocks=collectBlocks();
-  const date=new Date().toLocaleDateString('es-AR',{day:'numeric',month:'short',year:'numeric'});
+  // fecha: usar la elegida o hoy
+  const fechaISO = $('np-fecha').value || new Date().toISOString().split('T')[0];
+  const [fy,fm,fd] = fechaISO.split('-');
+  const fechaObj = new Date(+fy, +fm-1, +fd);
+  const date = fechaObj.toLocaleDateString('es-AR',{day:'numeric',month:'short',year:'numeric'});
+  const createdAt = Timestamp.fromDate(fechaObj);
   $('btn-save').disabled=true; $('btn-save').textContent='Guardando…';
   try {
     if(editingId){
-      await updateDoc(doc(db,'novedades',editingId),{title:titulo,cat,autor,excerpt,coverUrl,blocks});
+      await updateDoc(doc(db,'novedades',editingId),{title:titulo,cat,autor,excerpt,coverUrl,blocks,date,fechaISO,createdAt});
       toast('✓ Novedad actualizada');
     } else {
       await addDoc(collection(db,'novedades'),
-        {title:titulo,cat,autor,excerpt,coverUrl,blocks,date,likes:0,createdAt:serverTimestamp()});
+        {title:titulo,cat,autor,excerpt,coverUrl,blocks,date,fechaISO,likes:0,createdAt});
       toast('✓ Novedad publicada');
     }
     closeModal();
