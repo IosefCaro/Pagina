@@ -516,6 +516,7 @@ Nuestro Legado
 
     <!-- Grid de posts Firebase -->
     <div class="muro-grid" id="muro-grid"></div>
+    <div class="muro-pagination" id="muro-pagination"></div>
 
     <!-- ── Divisor hacia Instagram ── -->
     <div style="border-top:1px solid var(--border);margin:3.5rem 0 2.5rem;position:relative;">
@@ -1038,6 +1039,8 @@ const catColors={institucional:'#13134F',inicial:'#c88b00',primario:'#6a9000',se
 
 let _posts = [];
 let _currentFilter = 'todos';
+let _currentPage = 1;
+const POSTS_PER_PAGE = 9;
 const likedPosts = new Set(JSON.parse(localStorage.getItem('iosef_liked')||'[]'));
 
 const novedadesQuery = query(collection(db,'novedades'), orderBy('createdAt','desc'));
@@ -1052,17 +1055,24 @@ onSnapshot(novedadesQuery, (snapshot) => {
 
 function _renderMuro(){
   const grid = document.getElementById('muro-grid');
+  const paginationEl = document.getElementById('muro-pagination');
   if(!grid) return;
   const filtered = _currentFilter==='todos' ? _posts : _posts.filter(p=>p.cat===_currentFilter);
   if(_posts.length===0){
     grid.innerHTML='<div class="muro-empty" style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--muted);"><p>Cargando novedades…</p></div>';
+    if(paginationEl) paginationEl.innerHTML='';
     return;
   }
   if(filtered.length===0){
     grid.innerHTML='<div class="muro-empty" style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--muted);"><p>No hay novedades en esta categoría aún.</p></div>';
+    if(paginationEl) paginationEl.innerHTML='';
     return;
   }
-  grid.innerHTML=filtered.map(p=>{
+  const totalPages = Math.ceil(filtered.length / POSTS_PER_PAGE);
+  if(_currentPage > totalPages) _currentPage = 1;
+  const start = (_currentPage - 1) * POSTS_PER_PAGE;
+  const paginated = filtered.slice(start, start + POSTS_PER_PAGE);
+  grid.innerHTML=paginated.map(p=>{
     const coverHtml=p.coverUrl
       ? `<img class="post-img" src="${p.coverUrl}" alt="${p.title}" onerror="this.style.display='none';this.nextSibling.style.display='flex';"/><div class="post-img-ph" style="display:none">📰</div>`
       : `<div class="post-img-ph">📰</div>`;
@@ -1086,13 +1096,54 @@ function _renderMuro(){
       </div>
     </div>`;
   }).join('');
+  _renderPagination(filtered.length, totalPages);
 }
+
+function _renderPagination(total, totalPages){
+  const el = document.getElementById('muro-pagination');
+  if(!el) return;
+  if(totalPages <= 1){ el.innerHTML=''; return; }
+  
+  let html = '';
+  // Botón anterior
+  html += `<button class="pg-btn pg-arrow" onclick="window._goPage(${_currentPage-1})" ${_currentPage===1?'disabled':''}>‹</button>`;
+  
+  // Páginas numéricas (máx 5 visibles)
+  const range = [];
+  for(let i=1;i<=totalPages;i++) range.push(i);
+  const visible = totalPages <= 7 ? range : range.filter(i =>
+    i===1 || i===totalPages || Math.abs(i-_currentPage)<=2
+  );
+  let prev = 0;
+  visible.forEach(i => {
+    if(prev && i - prev > 1) html += '<span class="pg-info">…</span>';
+    html += `<button class="pg-btn${i===_currentPage?' active':''}" onclick="window._goPage(${i})">${i}</button>`;
+    prev = i;
+  });
+  
+  // Botón siguiente
+  html += `<button class="pg-btn pg-arrow" onclick="window._goPage(${_currentPage+1})" ${_currentPage===totalPages?'disabled':''}>›</button>`;
+  
+  el.innerHTML = html;
+}
+
+window._goPage = function(page){
+  const filtered = _currentFilter==='todos' ? _posts : _posts.filter(p=>p.cat===_currentFilter);
+  const totalPages = Math.ceil(filtered.length / POSTS_PER_PAGE);
+  if(page < 1 || page > totalPages) return;
+  _currentPage = page;
+  _renderMuro();
+  // Scroll suave al inicio del muro
+  const grid = document.getElementById('muro-grid');
+  if(grid) grid.scrollIntoView({behavior:'smooth', block:'start'});
+};
 
 // Exponer al HTML como window.X para que los onclick inline funcionen
 window._filterMuro = function(btn, cat){
   document.querySelectorAll('.mfbtn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
   _currentFilter=cat;
+  _currentPage=1;
   _renderMuro();
 };
 
