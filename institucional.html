@@ -150,12 +150,6 @@ a{color:var(--primary);text-decoration:none;}
 .feat-list li{display:flex;gap:.6rem;align-items:flex-start;font-size:.84rem;color:var(--muted);padding:.45rem 0;border-bottom:1px solid var(--border);line-height:1.6;}
 .feat-list li::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:.45rem;}
 
-/* ── SEDES ── */
-.sede-card{background:var(--white);border:1px solid var(--border);padding:1.6rem;border-top:3px solid var(--accent);box-shadow:0 2px 8px rgba(19,19,79,.05);}
-.sede-tag{font-size:.58rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:.4rem;}
-.sede-name{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--primary);margin-bottom:.85rem;}
-.sede-info{font-size:.84rem;color:var(--muted);line-height:2;}
-
 /* ── ACTIVIDADES ── */
 .act-card{background:var(--white);border:1px solid var(--border);padding:1.6rem;display:flex;gap:1rem;align-items:flex-start;transition:all .3s;box-shadow:0 2px 8px rgba(19,19,79,.04);}
 .act-card:hover{border-color:var(--primary);transform:translateY(-2px);box-shadow:0 8px 20px rgba(19,19,79,.1);}
@@ -642,7 +636,6 @@ HERO INSTITUCIONAL — cómo editar:
     <button class="tab active" onclick="switchTab(this)">Historia</button>
     <button class="tab" onclick="switchTab(this)">Misión y Visión</button>
     <button class="tab" onclick="switchTab(this)">Equipo</button>
-    <button class="tab" onclick="switchTab(this)">Sedes</button>
   </div>
   <div class="pi">
     <!-- HISTORIA (primera tab) -->
@@ -822,15 +815,7 @@ Aspiramos a que cada alumno se sienta profundamente identificado con su judaísm
         </div>
       </div>
     </div>
-    <!-- SEDES -->
-    <div class="panel">
-      <div class="g2">
-        <div class="sede-card"><div class="sede-tag">Nivel Inicial</div><div class="sede-name">Amenábar 2424</div><div class="sede-info">📍 Belgrano, CABA<br/>📱 54 911 5379-9790</div></div>
-        <div class="sede-card"><div class="sede-tag">Nivel Primario</div><div class="sede-name">Moldes 2440</div><div class="sede-info">📍 Belgrano, CABA<br/>📱 54 911 5523-6504</div></div>
-        <div class="sede-card" style="border-top-color:var(--sec);"><div class="sede-tag" style="color:var(--sec);">Sec. Mujeres</div><div class="sede-name">Moldes 2440</div><div class="sede-info">☎️ 4784-6719 · Int. 3</div></div>
-        <div class="sede-card" style="border-top-color:var(--sec);"><div class="sede-tag" style="color:var(--sec);">Sec. Varones</div><div class="sede-name">Echeverría 1166</div><div class="sede-info">📱 54 9 1151058872</div></div>
-      </div>
-    </div>
+    
   </div>
 </div>
 
